@@ -19,7 +19,7 @@ class cnmon_sensu::params {
 
     $environment                 = 'prod'
     $server                      = false
-    $env_name                    = undef
+    $env_name                    = 'dev'
     $repo_source                 = "https://sensu.global.ssl.fastly.net/yum/\$releasever/\$basearch/"
     $client_keepalive            = {}
     $version                     = 'present'

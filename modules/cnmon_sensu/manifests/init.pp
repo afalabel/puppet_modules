@@ -143,7 +143,7 @@ class cnmon_sensu (
             },
         }
     }
-
+    notice ("Invalid env_name ${env_name}")
     case $env_name {
         'homelab': {
             #PARAMETRI SPECIFICI

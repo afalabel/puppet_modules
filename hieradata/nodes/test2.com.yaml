@@ -1,0 +1,6 @@
+---
+classes:
+  - cnmon_sensu
+  - uchiwa
+
+cnmon_sensu::server: true
