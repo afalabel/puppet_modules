@@ -1,0 +1,31 @@
+{
+  "name": "cnaf-cnmon_sensu",
+  "version": "0.1.0",
+  "author": "cnaf",
+  "summary": "cnmon_sensu",
+  "license": "Apache-2.0",
+  "source": "",
+  "project_page": null,
+  "issues_url": null,
+  "dependencies": [
+    {"version_requirement":">= 4.17.0","name":"puppetlabs/stdlib"},
+    {"version_requirement":">= 1.5.0","name":"sensu/sensu"},
+    {"version_requirement":">= 1.2.2","name":"stahnma/epel"},
+    {"version_requirement":">= 0.1.0","name":"cnaf/cnmon_sensucert"}
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 3.8.7 < 5.0.0"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    }
+  ]
+}

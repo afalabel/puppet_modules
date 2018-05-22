@@ -1,0 +1,7 @@
+fixtures:
+  symlinks:
+    cnmon_sensucert: "#{source_dir}"
+    sensu: "../../../../../modules/sensu/"
+    rabbitmq: "../../../../../modules/rabbitmq/"
+    stdlib: "../../../../../modules/stdlib/"
+    staging: "../../../../../modules/staging/"
