@@ -48,8 +48,17 @@ Pj3BM+E9hNMOQ6N7H87G4rbDz4T/kswNSiyF3v5Vlm0U5nGWWbk7
 -----END RSA PRIVATE KEY-----"
 
 describe 'sensu', :type => :class do
-  let(:facts) { { :fqdn => 'hostname.domain.com', :osfamily => 'RedHat' } }
-  let(:params) { { :client => true } }
+  let(:facts) do
+    {
+      :fqdn            => 'hostname.domain.com',
+      :operatingsystem => 'CentOS',
+      :osfamily        => 'RedHat',
+      :kernel          => 'Linux',
+    }
+  end
+  let(:params_base) { { :client => true } }
+  let(:params_override) { {} }
+  let(:params) { params_base.merge(params_override) }
 
   context 'rabbitmq config' do
     context 'no ssl (default)' do
@@ -147,6 +156,79 @@ describe 'sensu', :type => :class do
       ) }
     end # when using key in variable
 
+    context 'when using rabbitmq cluster' do
+      let(:cluster_config) {
+        [
+          {
+            'port'            => '1234',
+            'host'            => 'myhost',
+            'user'            => 'sensuuser',
+            'password'        => 'sensupass',
+            'vhost'           => '/myvhost',
+            'ssl_cert_chain'  => '/etc/sensu/ssl/cert.pem',
+            'ssl_private_key' => '/etc/sensu/ssl/key.pem'
+          },
+          {
+            'port'            => '1234',
+            'host'            => 'myhost',
+            'user'            => 'sensuuser',
+            'password'        => 'sensupass',
+            'vhost'           => '/myvhost',
+            'ssl_cert_chain'  => '/etc/sensu/ssl/cert.pem',
+            'ssl_private_key' => '/etc/sensu/ssl/key.pem'
+          }
+        ]
+      }
+
+      let(:params_base) { {
+        :rabbitmq_ssl_cert_chain  => rabbitmq_ssl_cert_chain_test,
+        :rabbitmq_ssl_private_key => rabbitmq_ssl_private_key_test,
+        :rabbitmq_cluster => cluster_config
+      } }
+
+      it { should contain_file('/etc/sensu/ssl').with_ensure('directory') }
+      it { should contain_file('/etc/sensu/ssl/cert.pem').with_content(rabbitmq_ssl_cert_chain_test) }
+      it { should contain_file('/etc/sensu/ssl/key.pem').with_content(rabbitmq_ssl_private_key_test) }
+      it { should contain_sensu_rabbitmq_config('hostname.domain.com').with_cluster(cluster_config) }
+
+      context 'with rabbitmq_* class parameters also specified (#598)' do
+        describe 'sensu::rabbitmq_port' do
+          let(:params_override) { { rabbitmq_port: 6379 } }
+          it { is_expected.to contain_sensu_rabbitmq_config(facts[:fqdn]).without_port }
+        end
+
+        describe 'sensu::rabbitmq_host' do
+          let(:params_override) { { rabbitmq_host: 'rabbitmq.example.com' } }
+          it { is_expected.to contain_sensu_rabbitmq_config(facts[:fqdn]).without_host }
+        end
+
+        describe 'sensu::rabbitmq_user' do
+          let(:params_override) { { rabbitmq_user: 'sensu-ignored' } }
+          it { is_expected.to contain_sensu_rabbitmq_config(facts[:fqdn]).without_user }
+        end
+
+        describe 'sensu::rabbitmq_password' do
+          let(:params_override) { { rabbitmq_password: 'ignored-secret' } }
+          it { is_expected.to contain_sensu_rabbitmq_config(facts[:fqdn]).without_password }
+        end
+
+        describe 'sensu::rabbitmq_vhost' do
+          let(:params_override) { { rabbitmq_vhost: '/sensu-ignored' } }
+          it { is_expected.to contain_sensu_rabbitmq_config(facts[:fqdn]).without_vhost }
+        end
+
+        describe 'sensu::rabbitmq_heartbeat' do
+          let(:params_override) { { rabbitmq_heartbeat: 30 } }
+          it { is_expected.to contain_sensu_rabbitmq_config(facts[:fqdn]).without_heartbeat }
+        end
+
+        describe 'sensu::rabbitmq_prefetch' do
+          let(:params_override) { { rabbitmq_prefetch: 1 } }
+          it { is_expected.to contain_sensu_rabbitmq_config(facts[:fqdn]).without_prefetch }
+        end
+      end
+    end
+
     context 'when using prefetch attribute' do
       let(:params) { {
         :rabbitmq_host => 'myhost',
@@ -159,26 +241,28 @@ describe 'sensu', :type => :class do
       ) }
     end # when using prefetch attribute
 
-    context 'when not using prefetch attribute' do
+    context 'when using heartbeat attribute' do
       let(:params) { {
-        :rabbitmq_host => 'myhost'
+        :rabbitmq_host => 'myhost',
+        :rabbitmq_heartbeat => '10'
       } }
 
       it { should contain_sensu_rabbitmq_config('hostname.domain.com').with(
         :host => 'myhost',
-        :prefetch  => '1'
+        :heartbeat  => '10'
       ) }
-    end # when not using prefetch attribute
+    end # when using heartbeat attribute
 
     context 'purge config' do
       let(:params) { {
-        :purge  => { 'config' => true },
-        :server => false,
-        :client => false
+        :purge          => { 'config' => true },
+        :server         => false,
+        :client         => false,
+        :enterprise     => false,
+        :transport_type => 'redis'
       } }
 
       it { should contain_file('/etc/sensu/conf.d/rabbitmq.json').with_ensure('absent') }
     end
   end # rabbitmq config
-
 end

@@ -1,4 +1,3 @@
-require 'rubygems' if RUBY_VERSION < '1.9.0' && Puppet.version < '3'
 require 'json' if Puppet.features.json?
 require File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..',
                                    'puppet_x', 'sensu', 'provider_create.rb'))
@@ -25,7 +24,7 @@ Puppet::Type.type(:sensu_client_subscription).provide(:json) do
   end
 
   def config_file
-    "#{resource[:base_path]}/subscription_#{resource[:name]}.json"
+    "#{resource[:base_path]}/#{resource[:file_name]}"
   end
 
   def pre_create

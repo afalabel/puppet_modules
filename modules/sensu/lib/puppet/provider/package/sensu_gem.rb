@@ -12,8 +12,8 @@ Puppet::Type.type(:package).provide :sensu_gem, :parent => :gem do
   has_feature :versionable, :install_options
 
   commands :gemcmd =>
-    if File.exists?("#{ENV['SYSTEMDRIVE']}\\opt\\sensu\\embedded\\bin\\gem.bat")
-      "#{ENV['SYSTEMDRIVE']}\\opt\\sensu\\embedded\\bin\\gem.bat"
+    if RUBY_PLATFORM =~ /cygwin|mswin|mingw|bccwin|winse|emx/
+      "#{ENV['SYSTEMDRIVE']}\\opt\\sensu\\embedded\\bin\\gem.cmd"
     else
       "/opt/sensu/embedded/bin/gem"
     end

@@ -1,8 +1,9 @@
----
-:backends:
-  - yaml
-:yaml:
-  :datadir: /etc/puppet/hieradata
-:hierarchy:
-  - "nodes/%{::fqdn}"
-  - common
+version: 5
+defaults:
+  datadir: /etc/puppetlabs/code/environments/production/hieradata/
+  data_hash: yaml_data
+hierarchy:
+  - name: "Per-node data (yaml version)"
+    paths:
+      - "nodes/%{::fqdn}.yaml"
+      - "common.yaml"

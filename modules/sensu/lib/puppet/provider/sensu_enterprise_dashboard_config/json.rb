@@ -1,4 +1,3 @@
-require 'rubygems' if RUBY_VERSION < '1.9.0' && Puppet.version < '3'
 require 'json' if Puppet.features.json?
 require File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..',
                                    'puppet_x', 'sensu', 'provider_create.rb'))
@@ -120,6 +119,20 @@ Puppet::Type.type(:sensu_enterprise_dashboard_config).provide(:json) do
     conf['dashboard']['pass'] = value
   end
 
+  # Public: Retrieve the auth hash for the dashboard
+  #
+  # Returns the auth config
+  def auth
+    conf['dashboard']['auth']
+  end
+
+  # Public: Set the auth config
+  #
+  # Returns nothing.
+  def auth=(value)
+    conf['dashboard']['auth'] = value.to_hash
+  end
+
   # Public: Set the ssl listener config
   #
   # Returns nothing.
@@ -188,5 +201,19 @@ Puppet::Type.type(:sensu_enterprise_dashboard_config).provide(:json) do
   # Returns nothing.
   def ldap=(value)
     conf['dashboard']['ldap'] = value.to_hash
+  end
+
+  # Public: Retrieve the OIDC config
+  #
+  # Returns the OIDC auth config
+  def oidc
+    conf['dashboard']['oidc']
+  end
+
+  # Public: Set the OIDC config hash
+  #
+  # Returns nothing.
+  def oidc=(value)
+    conf['dashboard']['oidc'] = value.to_hash
   end
 end

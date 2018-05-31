@@ -51,27 +51,27 @@ describe 'uchiwa' do
           let(:pre_condition) { [ 'define apt::source ($ensure, $location, $release, $repos, $include, $key) {}' ] }
 
           context 'default' do
-            it { should contain_apt__source('sensu').with(
+            it { should contain_apt__source('uchiwa').with(
               :ensure   => 'present',
               :location => 'http://repositories.sensuapp.org/apt',
               :release  => 'sensu',
               :repos    => 'main',
               :include  => { 'src' => false, 'deb' => true },
-              :key      => { 'id' => '8911D8FF37778F24B4E726A218609E3D7580C77F', 'source' => 'http://repositories.sensuapp.org/apt/pubkey.gpg' },
+              :key      => { 'id' => 'EE15CFF6AB6E4E290FDAB681A20F259AEB9C94BB', 'source' => 'http://repositories.sensuapp.org/apt/pubkey.gpg' },
               :before   => 'Package[uchiwa]'
             ) }
           end
 
           context 'unstable repo' do
             let(:params) { { :repo => 'unstable' } }
-            it { should contain_apt__source('sensu').with_repos('unstable') }
+            it { should contain_apt__source('uchiwa').with_repos('unstable') }
           end
 
           context 'override repo url' do
             let(:params) { { :repo_source => 'http://repo.mydomain.com/apt' } }
-            it { should contain_apt__source('sensu').with( :location => 'http://repo.mydomain.com/apt') }
+            it { should contain_apt__source('uchiwa').with( :location => 'http://repo.mydomain.com/apt') }
 
-            it { should_not contain_apt__key('sensu').with(
+            it { should_not contain_apt__key('uchiwa').with(
               :key         => '7580C77F',
               :key_source  => 'http://repo.mydomain.com/apt/pubkey.gpg'
             ) }
@@ -80,7 +80,7 @@ describe 'uchiwa' do
           context 'override key ID and key source' do
             let(:params) { { :repo_key_id => 'FFFFFFFF', :repo_key_source => 'http://repo.mydomina.com/apt/pubkey.gpg' } }
 
-            it { should_not contain_apt__key('sensu').with(
+            it { should_not contain_apt__key('uchiwa').with(
               :key         => 'FFFFFFFF',
               :key_source  => 'http://repo.mydomain.com/apt/pubkey.gpg'
             ) }
@@ -89,9 +89,9 @@ describe 'uchiwa' do
           context 'install_repo => false' do
             let(:params) { { :install_repo => false, :repo => 'main' } }
 
-            it { should_not contain_apt__source('sensu') }
+            it { should_not contain_apt__source('uchiwa') }
 
-            it { should_not contain_apt__key('sensu').with(
+            it { should_not contain_apt__key('uchiwa').with(
               :key         => '7580C77F',
               :key_source  => 'http://repositories.sensuapp.org/apt/pubkey.gpg'
             ) }
@@ -111,7 +111,7 @@ describe 'uchiwa' do
         let(:facts) { { :osfamily => 'RedHat', :operatingsystemmajrelease => '6',:concat_basedir => '/dne', } }
 
         context 'default' do
-          it { should contain_yumrepo('sensu').with(
+          it { should contain_yumrepo('uchiwa').with(
             :enabled   => 1,
             :baseurl   => 'http://repos.sensuapp.org/yum/el/6/$basearch/',
             :gpgcheck  => 0,
@@ -121,18 +121,18 @@ describe 'uchiwa' do
 
         context 'unstable repo' do
           let(:params) { { :repo => 'unstable' } }
-          it { should contain_yumrepo('sensu').with(:baseurl => 'http://repos.sensuapp.org/yum-unstable/el/6/$basearch/' )}
+          it { should contain_yumrepo('uchiwa').with(:baseurl => 'http://repos.sensuapp.org/yum-unstable/el/6/$basearch/' )}
         end
 
         context 'override repo url' do
           let(:params) { { :repo_source => 'http://repo.mydomain.com/yum' } }
-          it { should contain_yumrepo('sensu').with( :baseurl => 'http://repo.mydomain.com/yum') }
+          it { should contain_yumrepo('uchiwa').with( :baseurl => 'http://repo.mydomain.com/yum') }
         end
 
         context 'install_repo => false' do
           let(:params) { { :install_repo => false } }
 
-          it { should_not contain_yumrepo('sensu') }
+          it { should_not contain_yumrepo('uchiwa') }
 
           it { should contain_package('uchiwa').with(
             :require => nil
@@ -152,11 +152,38 @@ describe 'uchiwa' do
     }
   end
 
+  context 'with sensu_api_endpoints multiple hosts' do
+    let(:params) {{ :sensu_api_endpoints => [ { 'name' => 'foo', 'host' => ['bar', 'baz' ] } ] }}
+    it {
+      should contain_file('/etc/sensu/uchiwa.json') \
+        .with_content(/"name": "foo"/) \
+        .with_content(/"host": "bar"/)
+        .with_content(/"host": "baz"/)
+    }
+  end
+
   context 'with multiple users' do
     let(:params) {{ :users => [ { 'username' => 'user1', 'password' => 'pass1', 'readonly' => true } ] }}
     it {
       should contain_file('/etc/sensu/uchiwa.json') \
         .with_content(/"username": "user1",\n        "password": "pass1",\n        "role": {\n          "readonly": true\n        }\n      }/)
+    }
+  end
+
+  context 'with static JWT RSA keys' do
+    let(:params) {{ :auth => { 'publickey' => '/etc/sensu/uchiwa.rsa.pub', 'privatekey' => '/etc/sensu/uchiwa.rsa' } }}
+    it {
+      should contain_file('/etc/sensu/uchiwa.json') \
+      .with_content(/"auth": {\n      "publickey": "\/etc\/sensu\/uchiwa.rsa.pub",\n      "privatekey": "\/etc\/sensu\/uchiwa.rsa"\n    }/)
+    }
+  end
+
+  context 'with usersoptions' do
+    let(:params) {{ :usersoptions => { 'disableNoExpiration' => true, 'defaultTheme' => 'uchiwa-default' } }}
+    it {
+      should contain_file('/etc/sensu/uchiwa.json') \
+        .with_content(/"disableNoExpiration": true/) \
+        .with_content(/"defaultTheme": "uchiwa-default"/)
     }
   end
 

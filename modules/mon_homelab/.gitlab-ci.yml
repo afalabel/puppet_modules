@@ -1,0 +1,7 @@
+job:
+  script:
+    - puppet module build .
+    - ls *
+  artifacts:
+    paths:
+    - pkg/*.tar.gz

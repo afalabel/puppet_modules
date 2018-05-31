@@ -1,4 +1,3 @@
-require 'rubygems' if RUBY_VERSION < '1.9.0' && Puppet.version < '3'
 require 'json' if Puppet.features.json?
 require File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..',
                                    'puppet_x', 'sensu', 'provider_create.rb'))
@@ -59,4 +58,12 @@ Puppet::Type.type(:sensu_filter).provide(:json) do
     conf['filters'][resource[:name]]['attributes'].merge!(to_type(value))
   end
 
+  def when
+    conf['filters'][resource[:name]]['when']
+  end
+
+  def when=(value)
+    conf['filters'][resource[:name]]['when'] ||= {}
+    conf['filters'][resource[:name]]['when'].merge!(to_type(value))
+  end
 end

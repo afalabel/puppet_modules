@@ -1,7 +1,0 @@
-fixtures:
-  symlinks:
-    cnmon_sensu: "#{source_dir}"
-    stdlib: "../../../../../modules/stdlib/"
-    cnmon_sensucert: "../../../../../modules/cnmon_sensucert/"
-    sensu: "../../../../../modules/sensu/"
-    epel: "../../../../../modules/epel/"

@@ -1,37 +1,35 @@
-# = Define: sensu::subscription
+# @summary Manages Sensu subscriptions
 #
-# Defines Sensu subscriptions
+# This define manages Sensu subscriptions
 #
-# == Parameters
+# @param ensure Whether the check should be present or not
 #
-# [*ensure*]
-#   String. Whether the check should be present or not
-#   Default: present
-#   Valid values: present, absent
-
-# [*custom*]
-#   Hash.  Custom client variables
-#   Default: {}
+# @param custom Custom client variables
 #
 define sensu::subscription (
-  $ensure       = 'present',
-  $custom       = {},
+  Enum['present','absent'] $ensure = 'present',
+  Hash $custom                     = {},
 ) {
 
-  validate_re($ensure, ['^present$', '^absent$'] )
+  include ::sensu
 
-  file { "/etc/sensu/conf.d/subscription_${name}.json":
+  # Remove any from title any char which is not a letter, a number
+  # or the . and - chars. Needed for safe path names.
+  $sanitized_name=regsubst($name, '[^0-9A-Za-z.-]', '_', 'G')
+
+  file { "${::sensu::conf_dir}/subscription_${sanitized_name}.json":
     ensure => $ensure,
-    owner  => 'sensu',
-    group  => 'sensu',
-    mode   => '0444',
+    owner  => $::sensu::user,
+    group  => $::sensu::group,
+    mode   => $::sensu::file_mode,
     before => Sensu_client_subscription[$name],
   }
 
   sensu_client_subscription { $name:
-    ensure => $ensure,
-    custom => $custom,
-    notify => Class['sensu::client::service'],
+    ensure    => $ensure,
+    base_path => $::sensu::conf_dir,
+    file_name => "subscription_${sanitized_name}.json",
+    custom    => $custom,
+    notify    => $::sensu::client_service,
   }
-
 }

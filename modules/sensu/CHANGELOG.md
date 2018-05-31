@@ -1,7 +1,940 @@
 # Change Log
 
-## [2.1.0](https://github.com/sensu/sensu-puppet/tree/2.1.0) (2015-09-24)
-[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v1.5.5...2.1.0)
+## [v2.53.0](https://github.com/sensu/sensu-puppet/tree/v2.53.0)
+
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.52.0...v2.53.0)
+
+**Implemented enhancements:**
+
+- Feature Request: Support for disabling the TCP/UDP Socket entirely [\#902](https://github.com/sensu/sensu-puppet/issues/902)
+- \(GH-902\) Add client\_socket\_enabled boolean parameter [\#905](https://github.com/sensu/sensu-puppet/pull/905) ([treydock](https://github.com/treydock))
+
+**Fixed bugs:**
+
+- Windows Handlers not handled by module [\#870](https://github.com/sensu/sensu-puppet/issues/870)
+
+**Closed issues:**
+
+- beaker testing should support windows [\#896](https://github.com/sensu/sensu-puppet/issues/896)
+- Functional testing with serverspec [\#884](https://github.com/sensu/sensu-puppet/issues/884)
+
+**Merged pull requests:**
+
+- Fix spec test warnings [\#903](https://github.com/sensu/sensu-puppet/pull/903) ([ghoneycutt](https://github.com/ghoneycutt))
+- \(GH-896\) Support beaker testing on windows server 2012r2 \(continued\) [\#898](https://github.com/sensu/sensu-puppet/pull/898) ([treydock](https://github.com/treydock))
+- \(GH-884\) Update acceptance testing [\#887](https://github.com/sensu/sensu-puppet/pull/887) ([treydock](https://github.com/treydock))
+- Allow gem\_install\_options on sensu\_gem plugins [\#878](https://github.com/sensu/sensu-puppet/pull/878) ([statyk](https://github.com/statyk))
+- \[870\] Support Windows in sensu::handler [\#874](https://github.com/sensu/sensu-puppet/pull/874) ([treydock](https://github.com/treydock))
+
+## [v2.52.0](https://github.com/sensu/sensu-puppet/tree/v2.52.0) (2018-04-16)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.51.0...v2.52.0)
+
+**Implemented enhancements:**
+
+- Implement self.instances for all native providers [\#770](https://github.com/sensu/sensu-puppet/issues/770)
+
+**Fixed bugs:**
+
+- Use correct version of stdlib with macos-client in vagrant [\#892](https://github.com/sensu/sensu-puppet/pull/892) ([ghoneycutt](https://github.com/ghoneycutt))
+
+**Closed issues:**
+
+- Vagrant tests fail for macos-client [\#891](https://github.com/sensu/sensu-puppet/issues/891)
+
+**Merged pull requests:**
+
+- add sensu version facter \(continued\) [\#894](https://github.com/sensu/sensu-puppet/pull/894) ([treydock](https://github.com/treydock))
+
+## [v2.51.0](https://github.com/sensu/sensu-puppet/tree/v2.51.0) (2018-04-05)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.50.1...v2.51.0)
+
+**Merged pull requests:**
+
+- Enable specifying enable/ensure when managing services [\#889](https://github.com/sensu/sensu-puppet/pull/889) ([ghoneycutt](https://github.com/ghoneycutt))
+
+## [v2.50.1](https://github.com/sensu/sensu-puppet/tree/v2.50.1) (2018-04-05)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.50.0...v2.50.1)
+
+**Fixed bugs:**
+
+- sensu\_enterprise\_dashboard\_api\_config purge [\#883](https://github.com/sensu/sensu-puppet/issues/883)
+
+**Merged pull requests:**
+
+- \(GH-883\) Remove example sensu\_enterprise\_dashboard\_api\_config resources by default [\#885](https://github.com/sensu/sensu-puppet/pull/885) ([treydock](https://github.com/treydock))
+
+## [v2.50.0](https://github.com/sensu/sensu-puppet/tree/v2.50.0) (2018-01-19)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.49.0...v2.50.0)
+
+**Closed issues:**
+
+- Pull Request: sensu::check auto\_resolve [\#857](https://github.com/sensu/sensu-puppet/issues/857)
+- Enterprise - Purging files no longer managed fails to notify correct service [\#854](https://github.com/sensu/sensu-puppet/issues/854)
+- When removing a check, sensu service not refresh [\#782](https://github.com/sensu/sensu-puppet/issues/782)
+
+**Merged pull requests:**
+
+- Adding auto\_resolve param to sensu::check. Replaces \#858 [\#872](https://github.com/sensu/sensu-puppet/pull/872) ([alvagante](https://github.com/alvagante))
+- Restart sensu-enterprise service when configs are purged \#854 [\#871](https://github.com/sensu/sensu-puppet/pull/871) ([alvagante](https://github.com/alvagante))
+
+## [v2.49.0](https://github.com/sensu/sensu-puppet/tree/v2.49.0) (2018-01-16)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.48.0...v2.49.0)
+
+**Implemented enhancements:**
+
+- Allow for management of file and directory permissions [\#825](https://github.com/sensu/sensu-puppet/issues/825)
+
+**Merged pull requests:**
+
+- Add parameters to configure dir and file modes [\#869](https://github.com/sensu/sensu-puppet/pull/869) ([ghoneycutt](https://github.com/ghoneycutt))
+
+## [v2.48.0](https://github.com/sensu/sensu-puppet/tree/v2.48.0) (2018-01-15)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.47.0...v2.48.0)
+
+**Implemented enhancements:**
+
+- Not all Sensu Enterprise Dashboard options are available [\#866](https://github.com/sensu/sensu-puppet/issues/866)
+- Add support for Debian 9 stretch [\#708](https://github.com/sensu/sensu-puppet/issues/708)
+
+**Merged pull requests:**
+
+- \[866\] Add Sensu Enterprise Dashboard auth and oidc configuration options [\#867](https://github.com/sensu/sensu-puppet/pull/867) ([treydock](https://github.com/treydock))
+
+## [v2.47.0](https://github.com/sensu/sensu-puppet/tree/v2.47.0) (2018-01-15)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.46.0...v2.47.0)
+
+**Implemented enhancements:**
+
+- \(GH-708\) Add support for Debian 9 \(Stretch\) [\#795](https://github.com/sensu/sensu-puppet/pull/795) ([ghoneycutt](https://github.com/ghoneycutt))
+
+## [v2.46.0](https://github.com/sensu/sensu-puppet/tree/v2.46.0) (2018-01-15)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.45.0...v2.46.0)
+
+**Closed issues:**
+
+- upgrading to newer version of sensu with newer embeded ruby doesn't reinstall plugins [\#542](https://github.com/sensu/sensu-puppet/issues/542)
+
+**Merged pull requests:**
+
+- \[542\] Add dependencies for sensu\_gem plugins [\#817](https://github.com/sensu/sensu-puppet/pull/817) ([glarizza](https://github.com/glarizza))
+
+## [v2.45.0](https://github.com/sensu/sensu-puppet/tree/v2.45.0) (2018-01-09)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.44.0...v2.45.0)
+
+**Closed issues:**
+
+- Support MacOS client [\#862](https://github.com/sensu/sensu-puppet/issues/862)
+
+**Merged pull requests:**
+
+- Macos [\#863](https://github.com/sensu/sensu-puppet/pull/863) ([ghoneycutt](https://github.com/ghoneycutt))
+
+## [v2.44.0](https://github.com/sensu/sensu-puppet/tree/v2.44.0) (2018-01-04)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.43.0...v2.44.0)
+
+**Merged pull requests:**
+
+- Use latest puppetlabs/stdlib \(2.24.0\) and Stdlib::Filemode type [\#865](https://github.com/sensu/sensu-puppet/pull/865) ([ghoneycutt](https://github.com/ghoneycutt))
+
+## [v2.43.0](https://github.com/sensu/sensu-puppet/tree/v2.43.0) (2018-01-04)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.42.0...v2.43.0)
+
+**Implemented enhancements:**
+
+- MAX\_OPEN\_FILES should be configurable for Sensu Enterprise [\#849](https://github.com/sensu/sensu-puppet/issues/849)
+
+**Fixed bugs:**
+
+- Roundrobin subscriptions on Windows aren't configured [\#820](https://github.com/sensu/sensu-puppet/issues/820)
+
+**Closed issues:**
+
+- check "type" field lost in json file while upgrading module [\#860](https://github.com/sensu/sensu-puppet/issues/860)
+- Sensu puppet doesn't work correctly if started from crontab: "Package\[sensu-plugin\] has failures" [\#859](https://github.com/sensu/sensu-puppet/issues/859)
+- test slack integration. [\#856](https://github.com/sensu/sensu-puppet/issues/856)
+- Centos 7 - not properly managing sensu-client service [\#855](https://github.com/sensu/sensu-puppet/issues/855)
+- CONFIG\_FILE environment variable should be configurable [\#851](https://github.com/sensu/sensu-puppet/issues/851)
+
+**Merged pull requests:**
+
+- Support only the latest releases of Puppet versions 4 and 5 [\#864](https://github.com/sensu/sensu-puppet/pull/864) ([ghoneycutt](https://github.com/ghoneycutt))
+- Added config\_file params to CONFIG\_FILE envvar \#851 [\#861](https://github.com/sensu/sensu-puppet/pull/861) ([alvagante](https://github.com/alvagante))
+- Fix \#820 [\#846](https://github.com/sensu/sensu-puppet/pull/846) ([alvagante](https://github.com/alvagante))
+
+## [v2.42.0](https://github.com/sensu/sensu-puppet/tree/v2.42.0) (2017-12-04)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.41.0...v2.42.0)
+
+**Closed issues:**
+
+- switch from puppetlabs/rabbitmq to puppet/rabbitmq [\#844](https://github.com/sensu/sensu-puppet/issues/844)
+
+**Merged pull requests:**
+
+- Added support for MAX\_OPEN\_FILES environment variable \#849 [\#850](https://github.com/sensu/sensu-puppet/pull/850) ([alvagante](https://github.com/alvagante))
+
+## [v2.41.0](https://github.com/sensu/sensu-puppet/tree/v2.41.0) (2017-11-27)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.40.1...v2.41.0)
+
+**Merged pull requests:**
+
+- Second attempt for \#844  [\#848](https://github.com/sensu/sensu-puppet/pull/848) ([alvagante](https://github.com/alvagante))
+- Revert "Merge pull request \#845 from alvagante/844" [\#847](https://github.com/sensu/sensu-puppet/pull/847) ([ghoneycutt](https://github.com/ghoneycutt))
+- Renamed references to puppetlabs to voxpupuli rabbitmq \#844 [\#845](https://github.com/sensu/sensu-puppet/pull/845) ([alvagante](https://github.com/alvagante))
+
+## [v2.40.1](https://github.com/sensu/sensu-puppet/tree/v2.40.1) (2017-11-17)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.40.0...v2.40.1)
+
+**Merged pull requests:**
+
+- \(security\) Update rest-client older version have a vulnerability [\#843](https://github.com/sensu/sensu-puppet/pull/843) ([ghoneycutt](https://github.com/ghoneycutt))
+
+## [v2.40.0](https://github.com/sensu/sensu-puppet/tree/v2.40.0) (2017-11-08)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.39.0...v2.40.0)
+
+**Closed issues:**
+
+- Transport class does not use platform specific user and group [\#838](https://github.com/sensu/sensu-puppet/issues/838)
+
+**Merged pull requests:**
+
+- \(GH-840\) Change default mode value for creation of json files [\#841](https://github.com/sensu/sensu-puppet/pull/841) ([ghoneycutt](https://github.com/ghoneycutt))
+
+## [v2.39.0](https://github.com/sensu/sensu-puppet/tree/v2.39.0) (2017-11-07)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.38.1...v2.39.0)
+
+**Closed issues:**
+
+- Implement hooks [\#836](https://github.com/sensu/sensu-puppet/issues/836)
+
+**Merged pull requests:**
+
+- Added hooks support \#836 [\#837](https://github.com/sensu/sensu-puppet/pull/837) ([alvagante](https://github.com/alvagante))
+
+## [v2.38.1](https://github.com/sensu/sensu-puppet/tree/v2.38.1) (2017-11-02)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.38.0...v2.38.1)
+
+**Fixed bugs:**
+
+- redact parameter causes errors [\#834](https://github.com/sensu/sensu-puppet/issues/834)
+
+**Merged pull requests:**
+
+- Set a defauly empty array for redact \#834 [\#835](https://github.com/sensu/sensu-puppet/pull/835) ([alvagante](https://github.com/alvagante))
+
+## [v2.38.0](https://github.com/sensu/sensu-puppet/tree/v2.38.0) (2017-10-26)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.37.0...v2.38.0)
+
+**Implemented enhancements:**
+
+- sensu module failing on amazon linux as it is pointing to a incorrect yum repo http url which doesn't exist [\#821](https://github.com/sensu/sensu-puppet/issues/821)
+
+**Fixed bugs:**
+
+- sensu module failing on amazon linux as it is pointing to a incorrect yum repo http url which doesn't exist [\#821](https://github.com/sensu/sensu-puppet/issues/821)
+
+**Closed issues:**
+
+- Sensu Enterprise Service Not Reloading After Checks [\#827](https://github.com/sensu/sensu-puppet/issues/827)
+- Cyclical dependencies when using Sensu Enterprise and the Enterprise API [\#815](https://github.com/sensu/sensu-puppet/issues/815)
+
+**Merged pull requests:**
+
+- Manage sensu on amazon Linux \#821 [\#833](https://github.com/sensu/sensu-puppet/pull/833) ([alvagante](https://github.com/alvagante))
+
+## [v2.37.0](https://github.com/sensu/sensu-puppet/tree/v2.37.0) (2017-10-23)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.36.0...v2.37.0)
+
+**Fixed bugs:**
+
+- transport.json not created when transport\_type = rabbitmq [\#809](https://github.com/sensu/sensu-puppet/issues/809)
+
+**Closed issues:**
+
+- Add client register and registration client configs [\#749](https://github.com/sensu/sensu-puppet/issues/749)
+
+**Merged pull requests:**
+
+- Fix for \#809 [\#832](https://github.com/sensu/sensu-puppet/pull/832) ([alvagante](https://github.com/alvagante))
+- Added client\_registration option \#749 [\#831](https://github.com/sensu/sensu-puppet/pull/831) ([alvagante](https://github.com/alvagante))
+
+## [v2.36.0](https://github.com/sensu/sensu-puppet/tree/v2.36.0) (2017-10-20)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.35.0...v2.36.0)
+
+**Closed issues:**
+
+- Absolute path set for rabbitmq ssl certs [\#798](https://github.com/sensu/sensu-puppet/issues/798)
+- Client config should support servicenow [\#775](https://github.com/sensu/sensu-puppet/issues/775)
+- Client config should support puppet [\#774](https://github.com/sensu/sensu-puppet/issues/774)
+- Client config should support chef [\#773](https://github.com/sensu/sensu-puppet/issues/773)
+- Cannot manage 2008 R2 localised \(french\) [\#769](https://github.com/sensu/sensu-puppet/issues/769)
+- Add a test in vagrant for PR \#745 [\#747](https://github.com/sensu/sensu-puppet/issues/747)
+
+**Merged pull requests:**
+
+- Change test versions [\#830](https://github.com/sensu/sensu-puppet/pull/830) ([ghoneycutt](https://github.com/ghoneycutt))
+- user on check for windows to use module defaults and notifying sensu-enterprise [\#829](https://github.com/sensu/sensu-puppet/pull/829) ([ghoneycutt](https://github.com/ghoneycutt))
+- \[815\] Resolve circular dependency when using sensu::enterprise::dashboard::api [\#816](https://github.com/sensu/sensu-puppet/pull/816) ([glarizza](https://github.com/glarizza))
+- Add vagrant tests for add/remove checks with sensu::check [\#814](https://github.com/sensu/sensu-puppet/pull/814) ([Phil-Friderici](https://github.com/Phil-Friderici))
+- Added sensu\_user and sensu\_group params to sensu class \#769 [\#813](https://github.com/sensu/sensu-puppet/pull/813) ([alvagante](https://github.com/alvagante))
+
+## [v2.35.0](https://github.com/sensu/sensu-puppet/tree/v2.35.0) (2017-09-06)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.34.0...v2.35.0)
+
+**Closed issues:**
+
+- Client config should support ec2 [\#772](https://github.com/sensu/sensu-puppet/issues/772)
+
+**Merged pull requests:**
+
+- Use variable for ssl\_dir in sensu::rabbitmq::config \#798 [\#808](https://github.com/sensu/sensu-puppet/pull/808) ([alvagante](https://github.com/alvagante))
+- Added support to client config for servicenow, ec2, chef, puppet \#772 \#773 \#774 \#775 [\#807](https://github.com/sensu/sensu-puppet/pull/807) ([alvagante](https://github.com/alvagante))
+
+## [v2.34.0](https://github.com/sensu/sensu-puppet/tree/v2.34.0) (2017-08-31)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.33.1...v2.34.0)
+
+**Closed issues:**
+
+- Client config should support http\_socket [\#776](https://github.com/sensu/sensu-puppet/issues/776)
+- Refactor inline documentation to puppet strings \(yard\) format [\#757](https://github.com/sensu/sensu-puppet/issues/757)
+- Stop using private classes and the anchor pattern [\#709](https://github.com/sensu/sensu-puppet/issues/709)
+- redacting passwords from catalogue output [\#515](https://github.com/sensu/sensu-puppet/issues/515)
+
+**Merged pull requests:**
+
+- Added http\_socket param to client config \#776 [\#805](https://github.com/sensu/sensu-puppet/pull/805) ([alvagante](https://github.com/alvagante))
+
+## [v2.33.1](https://github.com/sensu/sensu-puppet/tree/v2.33.1) (2017-08-28)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.33.0...v2.33.1)
+
+**Closed issues:**
+
+- Checks not working as expected [\#801](https://github.com/sensu/sensu-puppet/issues/801)
+
+**Merged pull requests:**
+
+- Force array for some sense::check params \#801 [\#804](https://github.com/sensu/sensu-puppet/pull/804) ([alvagante](https://github.com/alvagante))
+- Update the README to clarify support resources [\#802](https://github.com/sensu/sensu-puppet/pull/802) ([obfuscurity](https://github.com/obfuscurity))
+- \#709 Remove anchors \(and create\_resources\) [\#763](https://github.com/sensu/sensu-puppet/pull/763) ([alvagante](https://github.com/alvagante))
+
+## [v2.33.0](https://github.com/sensu/sensu-puppet/tree/v2.33.0) (2017-08-23)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.32.0...v2.33.0)
+
+**Closed issues:**
+
+- Default linux path not working on Windows with $has\_cluster [\#790](https://github.com/sensu/sensu-puppet/issues/790)
+
+**Merged pull requests:**
+
+- Quick fix for \#790 [\#800](https://github.com/sensu/sensu-puppet/pull/800) ([alvagante](https://github.com/alvagante))
+- Support puppet 5.1 [\#799](https://github.com/sensu/sensu-puppet/pull/799) ([ghoneycutt](https://github.com/ghoneycutt))
+
+## [v2.32.0](https://github.com/sensu/sensu-puppet/tree/v2.32.0) (2017-08-18)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.31.0...v2.32.0)
+
+**Implemented enhancements:**
+
+- Modify sensu::check to use defined type sensu::write\_json instead of native type sensu\_check [\#783](https://github.com/sensu/sensu-puppet/issues/783)
+
+**Closed issues:**
+
+- Vagrant uses an older version of rabbitmq [\#760](https://github.com/sensu/sensu-puppet/issues/760)
+- Add github templates [\#566](https://github.com/sensu/sensu-puppet/issues/566)
+
+**Merged pull requests:**
+
+- \(GH-566\) Add pull request template [\#797](https://github.com/sensu/sensu-puppet/pull/797) ([ghoneycutt](https://github.com/ghoneycutt))
+- \(GH-566\) Add Code of Conduct [\#796](https://github.com/sensu/sensu-puppet/pull/796) ([ghoneycutt](https://github.com/ghoneycutt))
+- \(GH-760\) Document rabbitmq's move to Voxpupuli [\#794](https://github.com/sensu/sensu-puppet/pull/794) ([ghoneycutt](https://github.com/ghoneycutt))
+- \(\#783\) Add sensu::check content parameter, use sensu::write\_json [\#785](https://github.com/sensu/sensu-puppet/pull/785) ([jeffmccune](https://github.com/jeffmccune))
+
+## [v2.31.0](https://github.com/sensu/sensu-puppet/tree/v2.31.0) (2017-08-14)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.30.1...v2.31.0)
+
+**Closed issues:**
+
+- Remove apt module from metadata [\#791](https://github.com/sensu/sensu-puppet/issues/791)
+- minimum apt version wall [\#788](https://github.com/sensu/sensu-puppet/issues/788)
+- sensu::plugin does not work on windows without specifying install\_path [\#786](https://github.com/sensu/sensu-puppet/issues/786)
+
+**Merged pull requests:**
+
+- Remove soft dependencies on apt and powershell [\#793](https://github.com/sensu/sensu-puppet/pull/793) ([ghoneycutt](https://github.com/ghoneycutt))
+- Puppet strings 4 all \#757 [\#792](https://github.com/sensu/sensu-puppet/pull/792) ([alvagante](https://github.com/alvagante))
+- \(GH-786\) sensu::plugin does not work on windows without specifying install\_path [\#789](https://github.com/sensu/sensu-puppet/pull/789) ([Phil-Friderici](https://github.com/Phil-Friderici))
+
+## [v2.30.1](https://github.com/sensu/sensu-puppet/tree/v2.30.1) (2017-07-31)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.30.0...v2.30.1)
+
+**Fixed bugs:**
+
+- Sensu Enterprise API SSL attributes are incorrectly configured [\#784](https://github.com/sensu/sensu-puppet/issues/784)
+
+**Closed issues:**
+
+- Auto generated documentation should show up as a GitHub page [\#777](https://github.com/sensu/sensu-puppet/issues/777)
+
+**Merged pull requests:**
+
+- \(\#784\) Fix Sensu Enterprise API SSL configuration scope [\#787](https://github.com/sensu/sensu-puppet/pull/787) ([jeffmccune](https://github.com/jeffmccune))
+- Update link to auto generated docs [\#778](https://github.com/sensu/sensu-puppet/pull/778) ([ghoneycutt](https://github.com/ghoneycutt))
+
+## [v2.30.0](https://github.com/sensu/sensu-puppet/tree/v2.30.0) (2017-07-26)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.29.0...v2.30.0)
+
+**Closed issues:**
+
+- Sensu Enterprise HEAP\_SIZE is not configurable [\#767](https://github.com/sensu/sensu-puppet/issues/767)
+- Stop using scope.lookupvar\(\) in templates [\#701](https://github.com/sensu/sensu-puppet/issues/701)
+- Pass gem\_install\_options to sensu::plugin class [\#599](https://github.com/sensu/sensu-puppet/issues/599)
+- etc\_dir should be configurable [\#578](https://github.com/sensu/sensu-puppet/issues/578)
+
+**Merged pull requests:**
+
+- Added heap\_size param \#767 [\#771](https://github.com/sensu/sensu-puppet/pull/771) ([alvagante](https://github.com/alvagante))
+
+## [v2.29.0](https://github.com/sensu/sensu-puppet/tree/v2.29.0) (2017-07-26)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.28.0...v2.29.0)
+
+**Closed issues:**
+
+- to\_type helper's handling of numbers is too loose [\#582](https://github.com/sensu/sensu-puppet/issues/582)
+
+**Merged pull requests:**
+
+- Add confd\_dir parameter [\#758](https://github.com/sensu/sensu-puppet/pull/758) ([bodgit](https://github.com/bodgit))
+
+## [v2.28.0](https://github.com/sensu/sensu-puppet/tree/v2.28.0) (2017-07-25)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.27.0...v2.28.0)
+
+**Implemented enhancements:**
+
+- Create a reference implementation for provider spec tests [\#759](https://github.com/sensu/sensu-puppet/issues/759)
+
+**Closed issues:**
+
+- Allow remediation on check.pp [\#560](https://github.com/sensu/sensu-puppet/issues/560)
+
+**Merged pull requests:**
+
+- Add validation of spec/fixtures/unit/\*\*/\*.json [\#768](https://github.com/sensu/sensu-puppet/pull/768) ([ghoneycutt](https://github.com/ghoneycutt))
+- WIP 582  Don't do type convertion on keys of sensu\_client\_config custom param [\#766](https://github.com/sensu/sensu-puppet/pull/766) ([alvagante](https://github.com/alvagante))
+- \(\#759\) Add reference spec tests for sensu\_check JSON provider [\#765](https://github.com/sensu/sensu-puppet/pull/765) ([jeffmccune](https://github.com/jeffmccune))
+- Add handle\_silenced parameter to handler defined type [\#753](https://github.com/sensu/sensu-puppet/pull/753) ([madAndroid](https://github.com/madAndroid))
+- \(GH-578\) etc\_dir should be configurable [\#741](https://github.com/sensu/sensu-puppet/pull/741) ([Phil-Friderici](https://github.com/Phil-Friderici))
+
+## [v2.27.0](https://github.com/sensu/sensu-puppet/tree/v2.27.0) (2017-07-19)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.26.0...v2.27.0)
+
+**Implemented enhancements:**
+
+- Add `rake doc` task to generate documentation from inline comments [\#748](https://github.com/sensu/sensu-puppet/issues/748)
+- Add support for deregister client config and deregistration handler [\#550](https://github.com/sensu/sensu-puppet/issues/550)
+
+**Closed issues:**
+
+- plugins should install before checks [\#463](https://github.com/sensu/sensu-puppet/issues/463)
+
+**Merged pull requests:**
+
+- \(\#748\) Add puppet-strings gem and dependencies [\#756](https://github.com/sensu/sensu-puppet/pull/756) ([jeffmccune](https://github.com/jeffmccune))
+- \(\#463\) Ensure sensu::plugins are managed before checks [\#755](https://github.com/sensu/sensu-puppet/pull/755) ([jeffmccune](https://github.com/jeffmccune))
+- \(\#550\) Add sensu client de-registration [\#750](https://github.com/sensu/sensu-puppet/pull/750) ([jeffmccune](https://github.com/jeffmccune))
+
+## [v2.26.0](https://github.com/sensu/sensu-puppet/tree/v2.26.0) (2017-07-19)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.25.0...v2.26.0)
+
+**Closed issues:**
+
+- Investigate getting sensu\_gem working on windows [\#700](https://github.com/sensu/sensu-puppet/issues/700)
+- Use Puppet v4's data types [\#682](https://github.com/sensu/sensu-puppet/issues/682)
+
+**Merged pull requests:**
+
+- Data types [\#761](https://github.com/sensu/sensu-puppet/pull/761) ([ghoneycutt](https://github.com/ghoneycutt))
+- \(PR-751\) working with csoleimani [\#752](https://github.com/sensu/sensu-puppet/pull/752) ([Phil-Friderici](https://github.com/Phil-Friderici))
+
+## [v2.25.0](https://github.com/sensu/sensu-puppet/tree/v2.25.0) (2017-07-14)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.24.0...v2.25.0)
+
+**Merged pull requests:**
+
+- \(PR-528\) working with kali-hernandez [\#745](https://github.com/sensu/sensu-puppet/pull/745) ([Phil-Friderici](https://github.com/Phil-Friderici))
+
+## [v2.24.0](https://github.com/sensu/sensu-puppet/tree/v2.24.0) (2017-07-13)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.23.0...v2.24.0)
+
+**Closed issues:**
+
+- support for setting spawn limit via puppet [\#727](https://github.com/sensu/sensu-puppet/issues/727)
+- Using rabbitmq\_cluster works only the first time puppet runs [\#598](https://github.com/sensu/sensu-puppet/issues/598)
+
+**Merged pull requests:**
+
+- \(\#727\) Add sensu::spawn\_limit class parameter [\#744](https://github.com/sensu/sensu-puppet/pull/744) ([jeffmccune](https://github.com/jeffmccune))
+- \(\#598\) Improve rabbitmq clustering robustness [\#742](https://github.com/sensu/sensu-puppet/pull/742) ([jeffmccune](https://github.com/jeffmccune))
+
+## [v2.23.0](https://github.com/sensu/sensu-puppet/tree/v2.23.0) (2017-07-13)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.22.0...v2.23.0)
+
+**Closed issues:**
+
+- sensu::check resources should support cron scheduling [\#737](https://github.com/sensu/sensu-puppet/issues/737)
+- use puppet code instead of ruby code in template [\#731](https://github.com/sensu/sensu-puppet/issues/731)
+
+**Merged pull requests:**
+
+- \(\#737\) Add cron attribute to sensu::check type [\#743](https://github.com/sensu/sensu-puppet/pull/743) ([jeffmccune](https://github.com/jeffmccune))
+
+## [v2.22.0](https://github.com/sensu/sensu-puppet/tree/v2.22.0) (2017-07-13)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.21.0...v2.22.0)
+
+**Closed issues:**
+
+- Vagrant ports for sensu-enterprise-server are off [\#735](https://github.com/sensu/sensu-puppet/issues/735)
+
+**Merged pull requests:**
+
+- \(GH-599\) Pass gem\_install\_options to sensu::plugin class [\#740](https://github.com/sensu/sensu-puppet/pull/740) ([Phil-Friderici](https://github.com/Phil-Friderici))
+- \(GH-560\) Add docs for $sensu::check::custom [\#739](https://github.com/sensu/sensu-puppet/pull/739) ([Phil-Friderici](https://github.com/Phil-Friderici))
+- \(\#735\) Fix sensu-server-enterprise Vagrant VM [\#738](https://github.com/sensu/sensu-puppet/pull/738) ([jeffmccune](https://github.com/jeffmccune))
+- \(GH-701\) Stop using scope.lookupvar\(\) in templates [\#724](https://github.com/sensu/sensu-puppet/pull/724) ([Phil-Friderici](https://github.com/Phil-Friderici))
+
+## [v2.21.0](https://github.com/sensu/sensu-puppet/tree/v2.21.0) (2017-07-12)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.20.1...v2.21.0)
+
+**Closed issues:**
+
+- improvement: proxy\_requests for sensu::check [\#637](https://github.com/sensu/sensu-puppet/issues/637)
+
+**Merged pull requests:**
+
+- \(\#637\) Add check proxy\_requests functionality [\#736](https://github.com/sensu/sensu-puppet/pull/736) ([jeffmccune](https://github.com/jeffmccune))
+
+## [v2.20.1](https://github.com/sensu/sensu-puppet/tree/v2.20.1) (2017-07-11)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.20.0...v2.20.1)
+
+**Closed issues:**
+
+- don't use templates for static files [\#732](https://github.com/sensu/sensu-puppet/issues/732)
+- new subscribe check does not restart sensu-api service [\#600](https://github.com/sensu/sensu-puppet/issues/600)
+
+**Merged pull requests:**
+
+- \(\#600\) Reload Sensu API when check configurations change [\#734](https://github.com/sensu/sensu-puppet/pull/734) ([jeffmccune](https://github.com/jeffmccune))
+- \(\#562\) Sensu\_filter resources notify Sensu Server and Sensu Enterprise [\#733](https://github.com/sensu/sensu-puppet/pull/733) ([jeffmccune](https://github.com/jeffmccune))
+
+## [v2.20.0](https://github.com/sensu/sensu-puppet/tree/v2.20.0) (2017-07-11)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.19.2...v2.20.0)
+
+**Implemented enhancements:**
+
+- Unable to define Contact Routing for Sensu Enterprise [\#597](https://github.com/sensu/sensu-puppet/issues/597)
+
+**Merged pull requests:**
+
+- \(\#597\) Add sensu::contact type \(Enterprise Only\) [\#728](https://github.com/sensu/sensu-puppet/pull/728) ([jeffmccune](https://github.com/jeffmccune))
+
+## [v2.19.2](https://github.com/sensu/sensu-puppet/tree/v2.19.2) (2017-07-11)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.19.1...v2.19.2)
+
+**Closed issues:**
+
+- Switch to using Hiera data in the module instead of accessing variables in another scope [\#678](https://github.com/sensu/sensu-puppet/issues/678)
+- sensu-api service should subscribe to sensu::rabbitmq::config class [\#433](https://github.com/sensu/sensu-puppet/issues/433)
+
+**Merged pull requests:**
+
+- \(\#433\) Reload Service\[sensu\_api\] on RabbitMQ config changes [\#730](https://github.com/sensu/sensu-puppet/pull/730) ([jeffmccune](https://github.com/jeffmccune))
+
+## [v2.19.1](https://github.com/sensu/sensu-puppet/tree/v2.19.1) (2017-07-10)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.19.0...v2.19.1)
+
+**Closed issues:**
+
+- $check\_notify does not load sensu::enterprise::service [\#495](https://github.com/sensu/sensu-puppet/issues/495)
+
+**Merged pull requests:**
+
+- \(GH-388\) Simplify class notifications [\#725](https://github.com/sensu/sensu-puppet/pull/725) ([ghoneycutt](https://github.com/ghoneycutt))
+- \(\#495\) Notify Service\[sensu-enterprise\] from Sensu::Check resources [\#720](https://github.com/sensu/sensu-puppet/pull/720) ([jeffmccune](https://github.com/jeffmccune))
+
+## [v2.19.0](https://github.com/sensu/sensu-puppet/tree/v2.19.0) (2017-07-09)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.18.0...v2.19.0)
+
+**Closed issues:**
+
+- rabbitmq\_reconnect\_on\_error parameter is useless [\#717](https://github.com/sensu/sensu-puppet/issues/717)
+- Windows - attempts to create a local 'sensu' user [\#617](https://github.com/sensu/sensu-puppet/issues/617)
+
+**Merged pull requests:**
+
+- \(\#717\) Remove rabbitmq\_reconnect\_on\_error [\#722](https://github.com/sensu/sensu-puppet/pull/722) ([jeffmccune](https://github.com/jeffmccune))
+
+## [v2.18.0](https://github.com/sensu/sensu-puppet/tree/v2.18.0) (2017-07-08)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.17.0...v2.18.0)
+
+**Closed issues:**
+
+- REQ - Windows - Support chocolatey as a package manager [\#589](https://github.com/sensu/sensu-puppet/issues/589)
+
+**Merged pull requests:**
+
+- \(\#589\) Add Chocolatey support for Windows [\#723](https://github.com/sensu/sensu-puppet/pull/723) ([jeffmccune](https://github.com/jeffmccune))
+
+## [v2.17.0](https://github.com/sensu/sensu-puppet/tree/v2.17.0) (2017-07-08)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.16.0...v2.17.0)
+
+**Implemented enhancements:**
+
+- Unable to set RabbitMQ Heartbeat option [\#428](https://github.com/sensu/sensu-puppet/issues/428)
+
+**Closed issues:**
+
+- Module does not support the when attribute on filters [\#658](https://github.com/sensu/sensu-puppet/issues/658)
+
+**Merged pull requests:**
+
+- \(\#658\) Manage the when attribute of sensu filters [\#721](https://github.com/sensu/sensu-puppet/pull/721) ([jeffmccune](https://github.com/jeffmccune))
+
+## [v2.16.0](https://github.com/sensu/sensu-puppet/tree/v2.16.0) (2017-07-07)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.15.0...v2.16.0)
+
+**Implemented enhancements:**
+
+- implement an `instances` method for the sensu\_enterprise\_dashboard\_api\_config `json` provider [\#649](https://github.com/sensu/sensu-puppet/issues/649)
+
+**Merged pull requests:**
+
+- \(\#649\) Enumerate sensu\_enterprise\_dashboard\_config instances [\#716](https://github.com/sensu/sensu-puppet/pull/716) ([jeffmccune](https://github.com/jeffmccune))
+
+## [v2.15.0](https://github.com/sensu/sensu-puppet/tree/v2.15.0) (2017-07-07)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.14.0...v2.15.0)
+
+**Closed issues:**
+
+- unable to load facts into a newly installed puppet agent server from puppet master [\#719](https://github.com/sensu/sensu-puppet/issues/719)
+
+**Merged pull requests:**
+
+- Working on PR557 [\#718](https://github.com/sensu/sensu-puppet/pull/718) ([Phil-Friderici](https://github.com/Phil-Friderici))
+
+## [v2.14.0](https://github.com/sensu/sensu-puppet/tree/v2.14.0) (2017-07-06)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.13.0...v2.14.0)
+
+**Closed issues:**
+
+- Add support for Puppet 5 [\#713](https://github.com/sensu/sensu-puppet/issues/713)
+- sensu\_enterprise\_dashboard\_api type should use `host` as namevar, not `name` [\#638](https://github.com/sensu/sensu-puppet/issues/638)
+- Unable to add ssl and insecure Sensu attributes to API section of dashboard.json [\#584](https://github.com/sensu/sensu-puppet/issues/584)
+
+**Merged pull requests:**
+
+- \(\#638\) Enable multiple Sensu Enterprise Dashboard API endpoints [\#715](https://github.com/sensu/sensu-puppet/pull/715) ([jeffmccune](https://github.com/jeffmccune))
+
+## [v2.13.0](https://github.com/sensu/sensu-puppet/tree/v2.13.0) (2017-07-06)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.12.0...v2.13.0)
+
+**Merged pull requests:**
+
+- \(GH-713\) Support Puppet 5 [\#714](https://github.com/sensu/sensu-puppet/pull/714) ([ghoneycutt](https://github.com/ghoneycutt))
+
+## [v2.12.0](https://github.com/sensu/sensu-puppet/tree/v2.12.0) (2017-07-06)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.11.0...v2.12.0)
+
+**Closed issues:**
+
+- Add ability to specify a different release for apt::source [\#711](https://github.com/sensu/sensu-puppet/issues/711)
+- Add support for Debian 7 and 8 [\#710](https://github.com/sensu/sensu-puppet/issues/710)
+
+**Merged pull requests:**
+
+- \(GH-710\) support debian 7 and 8 [\#712](https://github.com/sensu/sensu-puppet/pull/712) ([ghoneycutt](https://github.com/ghoneycutt))
+
+## [v2.11.0](https://github.com/sensu/sensu-puppet/tree/v2.11.0) (2017-07-06)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.10.0...v2.11.0)
+
+**Closed issues:**
+
+- module should support SSL configuration for API endpoints [\#648](https://github.com/sensu/sensu-puppet/issues/648)
+
+**Merged pull requests:**
+
+- Working on PR501 [\#703](https://github.com/sensu/sensu-puppet/pull/703) ([Phil-Friderici](https://github.com/Phil-Friderici))
+
+## [v2.10.0](https://github.com/sensu/sensu-puppet/tree/v2.10.0) (2017-07-05)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.9.0...v2.10.0)
+
+**Closed issues:**
+
+- Ubuntu16.04 uses the wrong ipaddress [\#695](https://github.com/sensu/sensu-puppet/issues/695)
+- redis\_reconnect\_on\_error should default to true [\#685](https://github.com/sensu/sensu-puppet/issues/685)
+- Windows - sensu-client.log does not rotate [\#618](https://github.com/sensu/sensu-puppet/issues/618)
+
+**Merged pull requests:**
+
+- \(GH-685\) redis\_reconnect\_on\_error now defaults to true [\#707](https://github.com/sensu/sensu-puppet/pull/707) ([ghoneycutt](https://github.com/ghoneycutt))
+- \(GH-695\) Use internal interface in Vagrant testing [\#706](https://github.com/sensu/sensu-puppet/pull/706) ([ghoneycutt](https://github.com/ghoneycutt))
+
+## [v2.9.0](https://github.com/sensu/sensu-puppet/tree/v2.9.0) (2017-07-04)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.8.0...v2.9.0)
+
+**Closed issues:**
+
+- Change repos to use HTTPS by default [\#697](https://github.com/sensu/sensu-puppet/issues/697)
+- Windows Install [\#626](https://github.com/sensu/sensu-puppet/issues/626)
+- HTTPS Apt repo [\#583](https://github.com/sensu/sensu-puppet/issues/583)
+
+**Merged pull requests:**
+
+- \(GH-648\) Add ability to specify SSL options to API config for Enterpr… [\#705](https://github.com/sensu/sensu-puppet/pull/705) ([ghoneycutt](https://github.com/ghoneycutt))
+- Use rspec-puppet 2.5.x until 2.6.x is fixed [\#702](https://github.com/sensu/sensu-puppet/pull/702) ([Phil-Friderici](https://github.com/Phil-Friderici))
+
+## [v2.8.0](https://github.com/sensu/sensu-puppet/tree/v2.8.0) (2017-06-30)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.7.0...v2.8.0)
+
+**Closed issues:**
+
+- Vagrant should have clients for other platforms [\#681](https://github.com/sensu/sensu-puppet/issues/681)
+- Error installing Sensu on Windows Server 2012R2 [\#646](https://github.com/sensu/sensu-puppet/issues/646)
+
+**Merged pull requests:**
+
+- Fix Package\[sensu\] on windows [\#699](https://github.com/sensu/sensu-puppet/pull/699) ([jeffmccune](https://github.com/jeffmccune))
+- \(GH-697\) Use https with public package repositories [\#698](https://github.com/sensu/sensu-puppet/pull/698) ([ghoneycutt](https://github.com/ghoneycutt))
+
+## [v2.7.0](https://github.com/sensu/sensu-puppet/tree/v2.7.0) (2017-06-28)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.6.0...v2.7.0)
+
+**Closed issues:**
+
+- the sensu-plugin gem is incorrectly installed with the system ruby instead of the embedded ruby [\#688](https://github.com/sensu/sensu-puppet/issues/688)
+
+**Merged pull requests:**
+
+- \(GH-644\) Use the new apt and yum repositories [\#696](https://github.com/sensu/sensu-puppet/pull/696) ([ghoneycutt](https://github.com/ghoneycutt))
+- \(GH-688\) Default sensu-plugin gem to use sensu\_gem provider [\#694](https://github.com/sensu/sensu-puppet/pull/694) ([jeffmccune](https://github.com/jeffmccune))
+
+## [v2.6.0](https://github.com/sensu/sensu-puppet/tree/v2.6.0) (2017-06-28)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.5.0...v2.6.0)
+
+**Closed issues:**
+
+- Drop support for Windows 2008 and 2012 \(non R2\) [\#691](https://github.com/sensu/sensu-puppet/issues/691)
+- Drop support for EOL platform ubuntu 12.04 [\#690](https://github.com/sensu/sensu-puppet/issues/690)
+
+**Merged pull requests:**
+
+- EOL platforms [\#693](https://github.com/sensu/sensu-puppet/pull/693) ([ghoneycutt](https://github.com/ghoneycutt))
+- Add support for Ubuntu 16.04 LTS [\#692](https://github.com/sensu/sensu-puppet/pull/692) ([ghoneycutt](https://github.com/ghoneycutt))
+- \(GH-681\) Add EL6 platform as a client to Vagrant [\#689](https://github.com/sensu/sensu-puppet/pull/689) ([ghoneycutt](https://github.com/ghoneycutt))
+
+## [v2.5.0](https://github.com/sensu/sensu-puppet/tree/v2.5.0) (2017-06-27)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.4.0...v2.5.0)
+
+**Closed issues:**
+
+- Ensure file validation tests are being done [\#680](https://github.com/sensu/sensu-puppet/issues/680)
+- Use a newer puppetlabs\_spec\_helper that includes syntax validation [\#679](https://github.com/sensu/sensu-puppet/issues/679)
+- Implement support for arbitrary top-level configuration hashes [\#661](https://github.com/sensu/sensu-puppet/issues/661)
+- Unable to define handler specific config properly [\#647](https://github.com/sensu/sensu-puppet/issues/647)
+- Getting 'cluster' error from module and then after updating getting 'heartbeat' error [\#634](https://github.com/sensu/sensu-puppet/issues/634)
+- Update repository URLs and release new module version [\#606](https://github.com/sensu/sensu-puppet/issues/606)
+
+**Merged pull requests:**
+
+- \(GH-680\) Add file validation checks for Vagrantfile and shell scripts \(\*.sh\) [\#687](https://github.com/sensu/sensu-puppet/pull/687) ([ghoneycutt](https://github.com/ghoneycutt))
+- \(GH-679\) Upgrade puppetlabs\_spec\_helper and puppet-lint [\#686](https://github.com/sensu/sensu-puppet/pull/686) ([ghoneycutt](https://github.com/ghoneycutt))
+
+## [v2.4.0](https://github.com/sensu/sensu-puppet/tree/v2.4.0) (2017-06-27)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.3.1...v2.4.0)
+
+**Closed issues:**
+
+- Vagrant environment does not work [\#676](https://github.com/sensu/sensu-puppet/issues/676)
+
+**Merged pull requests:**
+
+- Migrate vagrant to CentOS 7 and Puppet v4 [\#677](https://github.com/sensu/sensu-puppet/pull/677) ([ghoneycutt](https://github.com/ghoneycutt))
+
+## [v2.3.1](https://github.com/sensu/sensu-puppet/tree/v2.3.1) (2017-06-27)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.3.0...v2.3.1)
+
+**Closed issues:**
+
+- sensu::write\_json requires that owner and group be specified [\#683](https://github.com/sensu/sensu-puppet/issues/683)
+- Heads up about new contributors [\#673](https://github.com/sensu/sensu-puppet/issues/673)
+
+**Merged pull requests:**
+
+- \(GH-683\) Fix having to specify owner/group for sensu::write\_json [\#684](https://github.com/sensu/sensu-puppet/pull/684) ([ghoneycutt](https://github.com/ghoneycutt))
+
+## [v2.3.0](https://github.com/sensu/sensu-puppet/tree/v2.3.0) (2017-06-21)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.2.1...v2.3.0)
+
+**Closed issues:**
+
+- Fix package suffix spec test [\#670](https://github.com/sensu/sensu-puppet/issues/670)
+- all sort of integrations [\#666](https://github.com/sensu/sensu-puppet/issues/666)
+- test [\#665](https://github.com/sensu/sensu-puppet/issues/665)
+- Could not find init script or upstart conf file for 'sensu-enterprise' [\#662](https://github.com/sensu/sensu-puppet/issues/662)
+- Error: no parameter named 'heartbeat' at \[...\]/modules/sensu/manifests/rabbitmq/config.pp:126 [\#659](https://github.com/sensu/sensu-puppet/issues/659)
+
+**Merged pull requests:**
+
+- Release v2.3.0 [\#675](https://github.com/sensu/sensu-puppet/pull/675) ([ghoneycutt](https://github.com/ghoneycutt))
+- Fix \#670 - Package release string for EL platform [\#674](https://github.com/sensu/sensu-puppet/pull/674) ([ghoneycutt](https://github.com/ghoneycutt))
+- Update readme example for write\_json [\#672](https://github.com/sensu/sensu-puppet/pull/672) ([robbyt](https://github.com/robbyt))
+- Add ability to write arbitrary JSON to a file [\#671](https://github.com/sensu/sensu-puppet/pull/671) ([ghoneycutt](https://github.com/ghoneycutt))
+- Standardize files to ignore [\#669](https://github.com/sensu/sensu-puppet/pull/669) ([ghoneycutt](https://github.com/ghoneycutt))
+- TravisCI to explicitly test supported versions of Puppet [\#668](https://github.com/sensu/sensu-puppet/pull/668) ([ghoneycutt](https://github.com/ghoneycutt))
+- fix apt errors by adding os facts to debian and ubuntu examples [\#663](https://github.com/sensu/sensu-puppet/pull/663) ([cwjohnston](https://github.com/cwjohnston))
+- Avoid running sensu enterprise service in opensource installation [\#660](https://github.com/sensu/sensu-puppet/pull/660) ([devcfgc](https://github.com/devcfgc))
+- redhat version fix [\#615](https://github.com/sensu/sensu-puppet/pull/615) ([andyroyle](https://github.com/andyroyle))
+
+## [v2.2.1](https://github.com/sensu/sensu-puppet/tree/v2.2.1) (2017-05-30)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.2.0...v2.2.1)
+
+**Implemented enhancements:**
+
+- Drop support for old versions of Puppet and Ruby in next major version? [\#577](https://github.com/sensu/sensu-puppet/issues/577)
+
+**Fixed bugs:**
+
+- sensu::check unable to remove a check property [\#535](https://github.com/sensu/sensu-puppet/issues/535)
+
+**Closed issues:**
+
+- All of the json files \(client, api, etc.\) in /etc/sensu/conf.d remain empty [\#657](https://github.com/sensu/sensu-puppet/issues/657)
+- RHEL 7 - Sensu Enterprise service is not being managed correctly [\#655](https://github.com/sensu/sensu-puppet/issues/655)
+- Sensu packages cannot be authenticated [\#654](https://github.com/sensu/sensu-puppet/issues/654)
+- Version parameter fails to work with new package naming [\#641](https://github.com/sensu/sensu-puppet/issues/641)
+- sensu-0.28.5-2.msi checksum mismatch [\#630](https://github.com/sensu/sensu-puppet/issues/630)
+- Provider sensu\_gem is not functional on this host [\#629](https://github.com/sensu/sensu-puppet/issues/629)
+- Add Enterprise contact routing management [\#624](https://github.com/sensu/sensu-puppet/issues/624)
+- Does not install latest version [\#622](https://github.com/sensu/sensu-puppet/issues/622)
+- sense::handler creates deprecated "Filters" entry in resulting yaml [\#620](https://github.com/sensu/sensu-puppet/issues/620)
+- Windows: Provider sensu\_gem is not functional on this host [\#607](https://github.com/sensu/sensu-puppet/issues/607)
+- Source parameter not purged when removed from check [\#601](https://github.com/sensu/sensu-puppet/issues/601)
+- Windows: Fails to create sensu user [\#586](https://github.com/sensu/sensu-puppet/issues/586)
+- Doesn't create a transport.json file [\#556](https://github.com/sensu/sensu-puppet/issues/556)
+
+**Merged pull requests:**
+
+- Fix service inconsistencies in enterprise classes [\#656](https://github.com/sensu/sensu-puppet/pull/656) ([dzeleski](https://github.com/dzeleski))
+- Remove Puppet 3.8 from unit tests, update minimum Puppet version in metadata [\#650](https://github.com/sensu/sensu-puppet/pull/650) ([cwjohnston](https://github.com/cwjohnston))
+- Update version string validation to allow for redhat platform suffix [\#645](https://github.com/sensu/sensu-puppet/pull/645) ([cwjohnston](https://github.com/cwjohnston))
+- Bump puppetlabs/apt dependency [\#643](https://github.com/sensu/sensu-puppet/pull/643) ([aquister](https://github.com/aquister))
+- Fix some lint issues and test spec warnings [\#640](https://github.com/sensu/sensu-puppet/pull/640) ([cryptk](https://github.com/cryptk))
+- support for redis as a transport [\#639](https://github.com/sensu/sensu-puppet/pull/639) ([RiRa12621](https://github.com/RiRa12621))
+- Updating sensu\_gem provider to check for RUBY\_PLATFORM [\#632](https://github.com/sensu/sensu-puppet/pull/632) ([cdenneen](https://github.com/cdenneen))
+- Added windows\_repo\_prefix to allow for internal mirrors [\#631](https://github.com/sensu/sensu-puppet/pull/631) ([cdenneen](https://github.com/cdenneen))
+- Disable user creation on osfamily = windows by default [\#628](https://github.com/sensu/sensu-puppet/pull/628) ([cdenneen](https://github.com/cdenneen))
+- Add handle\_flapping option to sensu::handler [\#627](https://github.com/sensu/sensu-puppet/pull/627) ([johanek](https://github.com/johanek))
+- Added package\_checksum [\#625](https://github.com/sensu/sensu-puppet/pull/625) ([cdenneen](https://github.com/cdenneen))
+- Add fix to resolve rabbitmq cluster heartbeat config failure. [\#623](https://github.com/sensu/sensu-puppet/pull/623) ([dzeleski](https://github.com/dzeleski))
+- Add support to rotate windows logs [\#621](https://github.com/sensu/sensu-puppet/pull/621) ([dzeleski](https://github.com/dzeleski))
+- use gem.cmd instead of gem.bat [\#616](https://github.com/sensu/sensu-puppet/pull/616) ([andyroyle](https://github.com/andyroyle))
+- Support `ensure` property on sensu::enterprise::dashboard::api [\#613](https://github.com/sensu/sensu-puppet/pull/613) ([cwjohnston](https://github.com/cwjohnston))
+- Select debian/ubuntu release for apt repo [\#611](https://github.com/sensu/sensu-puppet/pull/611) ([johanek](https://github.com/johanek))
+- update repository urls yum [\#610](https://github.com/sensu/sensu-puppet/pull/610) ([goodwolf](https://github.com/goodwolf))
+- Drop support for Ruby 1.9 [\#605](https://github.com/sensu/sensu-puppet/pull/605) ([ghoneycutt](https://github.com/ghoneycutt))
+- set the log-level in the windows client xml config [\#604](https://github.com/sensu/sensu-puppet/pull/604) ([andyroyle](https://github.com/andyroyle))
+- Sort properties in sensu\_check provider [\#603](https://github.com/sensu/sensu-puppet/pull/603) ([ttarczynski](https://github.com/ttarczynski))
+- Remove sensu check property with absent [\#602](https://github.com/sensu/sensu-puppet/pull/602) ([ttarczynski](https://github.com/ttarczynski))
+- sensu-puppet-add heartbeat feature [\#596](https://github.com/sensu/sensu-puppet/pull/596) ([derkgort](https://github.com/derkgort))
+- Fix for enabling strict\_variables [\#593](https://github.com/sensu/sensu-puppet/pull/593) ([madAndroid](https://github.com/madAndroid))
+- sensu\_check provider: fix missed value [\#592](https://github.com/sensu/sensu-puppet/pull/592) ([pjfbashton](https://github.com/pjfbashton))
+- Add contributing.md [\#591](https://github.com/sensu/sensu-puppet/pull/591) ([jaxxstorm](https://github.com/jaxxstorm))
+- Update travis [\#590](https://github.com/sensu/sensu-puppet/pull/590) ([jaxxstorm](https://github.com/jaxxstorm))
+- Initital fix for sensu on windows [\#588](https://github.com/sensu/sensu-puppet/pull/588) ([dzeleski](https://github.com/dzeleski))
+- Use default redact [\#580](https://github.com/sensu/sensu-puppet/pull/580) ([paramite](https://github.com/paramite))
+- transorm input with munge in type rather than in sensu\_check/json.rb provider [\#573](https://github.com/sensu/sensu-puppet/pull/573) ([ttarczynski](https://github.com/ttarczynski))
+- add timeout support for handlers [\#547](https://github.com/sensu/sensu-puppet/pull/547) ([lobeck](https://github.com/lobeck))
+
+## [v2.2.0](https://github.com/sensu/sensu-puppet/tree/v2.2.0) (2016-11-27)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.1.0...v2.2.0)
+
+**Fixed bugs:**
+
+- Windows: Invalid Relationship [\#569](https://github.com/sensu/sensu-puppet/issues/569)
+- Tests still failing [\#533](https://github.com/sensu/sensu-puppet/issues/533)
+
+**Closed issues:**
+
+- Update README.md with compatibility [\#568](https://github.com/sensu/sensu-puppet/issues/568)
+- does sensu-puppet work well in updating to 0.26  [\#561](https://github.com/sensu/sensu-puppet/issues/561)
+- $::sensu::purge\['config'\] causes file path error on Windows agents [\#558](https://github.com/sensu/sensu-puppet/issues/558)
+- Update subdue for 0.26 [\#553](https://github.com/sensu/sensu-puppet/issues/553)
+- Add support for aggregates array [\#549](https://github.com/sensu/sensu-puppet/issues/549)
+- subdue should be optional for sensu check definition [\#548](https://github.com/sensu/sensu-puppet/issues/548)
+- Update Puppet Forge releases [\#545](https://github.com/sensu/sensu-puppet/issues/545)
+- error while installing ruby\_dep,  Bundler cannot continue [\#540](https://github.com/sensu/sensu-puppet/issues/540)
+- rake: uninitialized constant Syck with ruby 2.3.1 [\#539](https://github.com/sensu/sensu-puppet/issues/539)
+- Add some new maintainers [\#522](https://github.com/sensu/sensu-puppet/issues/522)
+- Using sensu\_gem provider before sensu::client is installed? [\#520](https://github.com/sensu/sensu-puppet/issues/520)
+- yum repository [\#519](https://github.com/sensu/sensu-puppet/issues/519)
+- sentinel supports in sensu redis.json [\#514](https://github.com/sensu/sensu-puppet/issues/514)
+- enable support for change in aggregates [\#512](https://github.com/sensu/sensu-puppet/issues/512)
+- Travis builds failing even on no code change [\#511](https://github.com/sensu/sensu-puppet/issues/511)
+- Sensu puppet module causes invalid parameter prefetch on some runs of puppet [\#507](https://github.com/sensu/sensu-puppet/issues/507)
+- Sensu plugin install fails when using URLs [\#506](https://github.com/sensu/sensu-puppet/issues/506)
+- Sensu puppet module causes invalid parameter prefetch on some runs of puppet [\#504](https://github.com/sensu/sensu-puppet/issues/504)
+- Cannot create /etc/sensu/conf.d/redis.json without "password" [\#503](https://github.com/sensu/sensu-puppet/issues/503)
+- Add support for Redis Sentinels Config [\#499](https://github.com/sensu/sensu-puppet/issues/499)
+- Check subdue modified every run [\#497](https://github.com/sensu/sensu-puppet/issues/497)
+- Trailing comma issue in config [\#492](https://github.com/sensu/sensu-puppet/issues/492)
+- Sensu Windows: sensu\_rabbitmq\_config type needs base\_path param passed [\#489](https://github.com/sensu/sensu-puppet/issues/489)
+- Wrong default value of rabbitmq\_vhost [\#473](https://github.com/sensu/sensu-puppet/issues/473)
+- Release new version "Tag the repo" [\#472](https://github.com/sensu/sensu-puppet/issues/472)
+- support for new deregistration options [\#470](https://github.com/sensu/sensu-puppet/issues/470)
+- 'gem list --remote' does not respect proxy settings [\#460](https://github.com/sensu/sensu-puppet/issues/460)
+- Question about overriding check command [\#459](https://github.com/sensu/sensu-puppet/issues/459)
+- `gem --list` hangs - need a way to set a timeout [\#452](https://github.com/sensu/sensu-puppet/issues/452)
+- Sensu-client service enable is not idempotent on CentOS 7 [\#448](https://github.com/sensu/sensu-puppet/issues/448)
+- Differentiate between sensu-plugin gem and the sensu-plugins [\#432](https://github.com/sensu/sensu-puppet/issues/432)
+- Changing Handler type fails with 'keys' error [\#360](https://github.com/sensu/sensu-puppet/issues/360)
+- Support for multiple broker connection options with RabbitMQ [\#269](https://github.com/sensu/sensu-puppet/issues/269)
+- Add functionality to configure mutators [\#230](https://github.com/sensu/sensu-puppet/issues/230)
+
+**Merged pull requests:**
+
+- Module bump [\#587](https://github.com/sensu/sensu-puppet/pull/587) ([jaxxstorm](https://github.com/jaxxstorm))
+- Add support for multi-host Rabbitmq config [\#581](https://github.com/sensu/sensu-puppet/pull/581) ([dhgwilliam](https://github.com/dhgwilliam))
+- fix tests on Ruby 1.8 [\#579](https://github.com/sensu/sensu-puppet/pull/579) ([ttarczynski](https://github.com/ttarczynski))
+- pin semantic\_puppet gem at \< 0.1.4 on Ruby 1.8 or earlier [\#576](https://github.com/sensu/sensu-puppet/pull/576) ([cwjohnston](https://github.com/cwjohnston))
+- Small puppet-lint fix [\#575](https://github.com/sensu/sensu-puppet/pull/575) ([ttarczynski](https://github.com/ttarczynski))
+- use constant SENSU\_CHECK\_PROPERTIES instead of hardcoded check\_args in sensu\_check provider [\#572](https://github.com/sensu/sensu-puppet/pull/572) ([ttarczynski](https://github.com/ttarczynski))
+- Add sensu compatibility info in README.md [\#571](https://github.com/sensu/sensu-puppet/pull/571) ([ttarczynski](https://github.com/ttarczynski))
+- \[enterprise dashboard\] move package resource inside conditional [\#570](https://github.com/sensu/sensu-puppet/pull/570) ([cwjohnston](https://github.com/cwjohnston))
+- Add an issue template [\#567](https://github.com/sensu/sensu-puppet/pull/567) ([jaxxstorm](https://github.com/jaxxstorm))
+- remove subdue property with 'absent' [\#565](https://github.com/sensu/sensu-puppet/pull/565) ([ttarczynski](https://github.com/ttarczynski))
+- Tests for subdue 2.0 [\#564](https://github.com/sensu/sensu-puppet/pull/564) ([ttarczynski](https://github.com/ttarczynski))
+- Remove subdue from handler [\#563](https://github.com/sensu/sensu-puppet/pull/563) ([ttarczynski](https://github.com/ttarczynski))
+- Add support for new aggregates type in 0.26 [\#554](https://github.com/sensu/sensu-puppet/pull/554) ([jaxxstorm](https://github.com/jaxxstorm))
+- Add ruby 2.2 tests [\#552](https://github.com/sensu/sensu-puppet/pull/552) ([jaxxstorm](https://github.com/jaxxstorm))
+- Fixes for Windows clients with Enterprise [\#544](https://github.com/sensu/sensu-puppet/pull/544) ([jacobmw](https://github.com/jacobmw))
+- small fixes in docs [\#543](https://github.com/sensu/sensu-puppet/pull/543) ([ttarczynski](https://github.com/ttarczynski))
+- Fixing tests [\#538](https://github.com/sensu/sensu-puppet/pull/538) ([jaxxstorm](https://github.com/jaxxstorm))
+- validate subdue is a hash [\#536](https://github.com/sensu/sensu-puppet/pull/536) ([fessyfoo](https://github.com/fessyfoo))
+- Allow undef handlers and subscribers [\#531](https://github.com/sensu/sensu-puppet/pull/531) ([thejandroman](https://github.com/thejandroman))
+- Pin the package provider for RedHat osfamily [\#530](https://github.com/sensu/sensu-puppet/pull/530) ([thejandroman](https://github.com/thejandroman))
+- Pin listen to a working pre-ruby2.2 version [\#529](https://github.com/sensu/sensu-puppet/pull/529) ([thejandroman](https://github.com/thejandroman))
+- Better explain diff between diff sensu-plugin [\#526](https://github.com/sensu/sensu-puppet/pull/526) ([jaxxstorm](https://github.com/jaxxstorm))
+- Switch default vhost to /sensu [\#525](https://github.com/sensu/sensu-puppet/pull/525) ([jaxxstorm](https://github.com/jaxxstorm))
+- Add support for stringified aggregates [\#524](https://github.com/sensu/sensu-puppet/pull/524) ([jaxxstorm](https://github.com/jaxxstorm))
+- Add support for client deregistration [\#523](https://github.com/sensu/sensu-puppet/pull/523) ([jaxxstorm](https://github.com/jaxxstorm))
+- Fix tests [\#517](https://github.com/sensu/sensu-puppet/pull/517) ([jaxxstorm](https://github.com/jaxxstorm))
+- small puppet-lint fixes [\#513](https://github.com/sensu/sensu-puppet/pull/513) ([ttarczynski](https://github.com/ttarczynski))
+- Small fix in docs [\#510](https://github.com/sensu/sensu-puppet/pull/510) ([ttarczynski](https://github.com/ttarczynski))
+- Support redis sentinels and add master property [\#509](https://github.com/sensu/sensu-puppet/pull/509) ([modax](https://github.com/modax))
+- fix issue \#497 [\#498](https://github.com/sensu/sensu-puppet/pull/498) ([bovy89](https://github.com/bovy89))
+- Use 127.0.0.1 instead of localhost for hosts, it could resolve to ::1 [\#494](https://github.com/sensu/sensu-puppet/pull/494) ([portertech](https://github.com/portertech))
+- Updated config.pp to add base\_path [\#490](https://github.com/sensu/sensu-puppet/pull/490) ([r0b0tAnthony](https://github.com/r0b0tAnthony))
+- Install rake \< 11.0.0 for ruby \< 1.9.3 [\#487](https://github.com/sensu/sensu-puppet/pull/487) ([atrepca](https://github.com/atrepca))
+- add source to remote\_file for urls in plugin.pp [\#486](https://github.com/sensu/sensu-puppet/pull/486) ([chrissav](https://github.com/chrissav))
+
+## [v2.1.0](https://github.com/sensu/sensu-puppet/tree/v2.1.0) (2016-02-29)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v2.0.0...v2.1.0)
 
 **Closed issues:**
 
@@ -22,6 +955,7 @@
 
 **Merged pull requests:**
 
+- version bump: 2.1.0 [\#483](https://github.com/sensu/sensu-puppet/pull/483) ([jlambert121](https://github.com/jlambert121))
 - add support for configuring sensu-enterprise-dashboard audit logging [\#482](https://github.com/sensu/sensu-puppet/pull/482) ([cwjohnston](https://github.com/cwjohnston))
 - add support for configuring sensu-enterprise-dashboard gitlab auth [\#481](https://github.com/sensu/sensu-puppet/pull/481) ([cwjohnston](https://github.com/cwjohnston))
 - add support for configuring sensu-enterprise-dashboard ssl listener [\#480](https://github.com/sensu/sensu-puppet/pull/480) ([cwjohnston](https://github.com/cwjohnston))
@@ -53,8 +987,8 @@
 - strict\_variables bugfix for redhat ::osfamily [\#427](https://github.com/sensu/sensu-puppet/pull/427) ([smithtrevor](https://github.com/smithtrevor))
 - version bump: 2.0.0 [\#426](https://github.com/sensu/sensu-puppet/pull/426) ([jlambert121](https://github.com/jlambert121))
 
-## [2.0.0](https://github.com/sensu/sensu-puppet/tree/2.0.0) (2015-09-24)
-[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v1.5.5...2.0.0)
+## [v2.0.0](https://github.com/sensu/sensu-puppet/tree/v2.0.0) (2015-09-24)
+[Full Changelog](https://github.com/sensu/sensu-puppet/compare/v1.5.5...v2.0.0)
 
 **Closed issues:**
 
@@ -214,7 +1148,7 @@
 - Update sensu\_gem provider [\#277](https://github.com/sensu/sensu-puppet/pull/277) ([adamcrews](https://github.com/adamcrews))
 - Vagrant [\#276](https://github.com/sensu/sensu-puppet/pull/276) ([spuder](https://github.com/spuder))
 - Add sensu\_gem package provider [\#274](https://github.com/sensu/sensu-puppet/pull/274) ([adamcrews](https://github.com/adamcrews))
-- Override path of yum repo if rhel or centos 7. [\#272](https://github.com/sensu/sensu-puppet/pull/272) ([semiletov](https://github.com/semiletov))
+- Override path of yum repo if rhel or centos 7. [\#272](https://github.com/sensu/sensu-puppet/pull/272) ([m7ov](https://github.com/m7ov))
 - Update tests for unsupported OSes [\#270](https://github.com/sensu/sensu-puppet/pull/270) ([jlambert121](https://github.com/jlambert121))
 - fix rabbitmq ssl config [\#268](https://github.com/sensu/sensu-puppet/pull/268) ([patrick-minted](https://github.com/patrick-minted))
 - fix filter json [\#267](https://github.com/sensu/sensu-puppet/pull/267) ([patrick-minted](https://github.com/patrick-minted))

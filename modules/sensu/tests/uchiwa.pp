@@ -13,7 +13,7 @@ file { '/etc/sensu/uchiwa.json':
   "sensu": [
     {
       "name": "Site1",
-      "host": "localhost",
+      "host": "127.0.0.1",
       "port": 4567,
       "timeout": 5,
       "user": "admin",
@@ -34,5 +34,9 @@ file { '/etc/sensu/uchiwa.json':
 
 service { 'uchiwa':
   ensure  => running,
-  require => [ File['/etc/sensu/uchiwa.json'],Package['uchiwa'] ],
+  enable  => true,
+  require => [
+    File['/etc/sensu/uchiwa.json'],
+    Package['uchiwa'],
+  ],
 }

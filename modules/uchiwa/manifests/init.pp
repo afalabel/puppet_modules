@@ -47,6 +47,11 @@
 #    Default: http://repositories.sensuapp.org/apt/pubkey.gpg
 #    GPG key for the repo we're installing
 #
+#  [*manage_package*]
+#    Boolean
+#    Default: true
+#    Should we install the package from the repo?
+#
 #  [*manage_services*]
 #    Boolean
 #    Default: true
@@ -85,22 +90,25 @@
 #  [*sensu_api_endpoints*]
 #    Array of hashes
 #    Default: [{
-#               name    => 'sensu',
-#               ssl     => false,
-#               port    => 4567,
-#               user    => 'sensu',
-#               pass    => 'sensu',
-#               path    => '',
-#               timeout => 5,
+#               name     => 'sensu',
+#               ssl      => false,
+#               host     => '127.0.0.1',
+#               port     => 4567,
+#               user     => 'sensu',
+#               pass     => 'sensu',
+#               path     => '',
+#               timeout  => 5,
 #             }]
-#     An array of API endpoints to connect uchiwa to one or multiple sensu servers.
+#    An array of API endpoints to connect uchiwa to one or multiple sensu servers.
+#    The host field can be an array of hostnames or ip addresses for redundancy.
+#    You may also set the host field to be a single hostname or ip address string.
 #
 #  [*users*]
 #    Array of hashes
 #    An array of user credentials to access the uchiwa dashboard. If set, it takes
 #    precendence over 'user' and 'pass'.
-#    Example: 
-#    ```   
+#    Example:
+#    ```
 #    [{
 #       'username' => 'user1',
 #       'password' => 'pass1',
@@ -113,6 +121,18 @@
 #     }]
 #     ```
 #
+#  [*auth*]
+#    Hash
+#    A hash containing the static public and private key paths for generating and
+#    validating JSON Web Token (JWT) signatures.
+#    Example:
+#    ```
+#    {
+#      'publickey'  => '/path/to/uchiwa.rsa.pub',
+#      'privatekey' => '/path/to/uchiwa.rsa'
+#    }
+#    ```
+#
 class uchiwa (
   $package_name         = $uchiwa::params::package_name,
   $service_name         = $uchiwa::params::service_name,
@@ -122,6 +142,7 @@ class uchiwa (
   $repo_source          = $uchiwa::params::repo_source,
   $repo_key_id          = $uchiwa::params::repo_key_id,
   $repo_key_source      = $uchiwa::params::repo_key_source,
+  $manage_package       = $uchiwa::params::manage_package,
   $manage_services      = $uchiwa::params::manage_services,
   $manage_user          = $uchiwa::params::manage_user,
   $host                 = $uchiwa::params::host,
@@ -130,11 +151,15 @@ class uchiwa (
   $pass                 = $uchiwa::params::pass,
   $refresh              = $uchiwa::params::refresh,
   $sensu_api_endpoints  = $uchiwa::params::sensu_api_endpoints,
-  $users                = $uchiwa::params::users
+  $users                = $uchiwa::params::users,
+  $auth                 = $uchiwa::params::auth,
+  $ssl                  = $uchiwa::params::ssl,
+  $usersoptions         = $uchiwa::params::usersoptions,
 ) inherits uchiwa::params {
 
   # validate parameters here
   validate_bool($install_repo)
+  validate_bool($manage_package)
   validate_bool($manage_services)
   validate_bool($manage_user)
   validate_string($package_name)
@@ -151,6 +176,9 @@ class uchiwa (
   validate_integer($refresh)
   validate_array($sensu_api_endpoints)
   validate_array($users)
+  validate_hash($auth)
+  validate_hash($ssl)
+  validate_hash($usersoptions)
 
   anchor { 'uchiwa::begin': } ->
   class { 'uchiwa::install': } ->

@@ -1,0 +1,36 @@
+{
+  "name": "cnaf-mon_homelab",
+  "version": "0.1.1",
+  "author": "cnaf",
+  "summary": "mon_homelab",
+  "license": "Apache-2.0",
+  "source": "",
+  "project_page": null,
+  "issues_url": null,
+  "dependencies": [
+    {"version_requirement":"4.25.1","name":"puppetlabs/stdlib"},
+    {"version_requirement":"2.53.0","name":"sensu/sensu"},
+    {"version_requirement":"1.2.2","name":"stahnma/epel"},
+    {"version_requirement":"0.3.0","name":"garethr/erlang"},
+    {"version_requirement":"8.2.2","name":"puppet/rabbitmq"},
+    {"version_requirement":"1.9.0","name":"dwerder/redis"},
+    {"version_requirement":"2.0.0","name":"yelp/uchiwa"},
+    {"version_requirement":"4.0.0","name":"golja/influxdb"},
+    {"version_requirement":"4.2.0","name":"puppet/grafana"},
+    {"version_requirement":"1.4.0","name":"yo61/logrotate"}
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 3.8.7 < 6.0.0"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    }
+  ]
+}

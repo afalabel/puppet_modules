@@ -1,26 +1,35 @@
 {
 "sensu": [
-  <%- default_endpoint = scope['uchiwa::params::sensu_api_endpoints'][0] -%>
-  <%- @sensu_api_endpoints.each_with_index do |endpoint, i| -%>
-    {
-      "name": "<%= endpoint['name'] || default_endpoint['name'] %>",
-      "host": "<%= endpoint['host'] || default_endpoint['host'] %>",
-      "ssl": <%= endpoint['ssl'] || default_endpoint['ssl'] %>,
-      "insecure": <%= endpoint['insecure'] || default_endpoint['insecure']%>,
-      "port": <%= endpoint['port'] || default_endpoint['port'] %>,
-      "user": "<%= endpoint['user'] || default_endpoint['user'] %>",
-      "pass": "<%= endpoint['pass'] || default_endpoint['pass'] %>",
-      "path": "<%= endpoint['path'] || default_endpoint['path'] %>",
-      "timeout": <%= endpoint['timeout'] || default_endpoint['timeout'] %>
-    }<%= ',' if i < (@sensu_api_endpoints.size - 1) %>
+  <%-
+  default_endpoint = scope['uchiwa::params::sensu_api_endpoints'][0]
+  @sensu_api_endpoints.each_with_index do |endpoint, i|
+    if !endpoint['host'].kind_of?(Array)
+      host = endpoint['host'] || default_endpoint['host']
+      endpoint['host'] = []
+      endpoint['host'] << host
+    end
+    endpoint['host'].each_with_index do |host,j| -%>
+      {
+        "name": "<%= endpoint['name'] || default_endpoint['name'] %>",
+        "host": "<%= host %>",
+        "ssl": <%= endpoint['ssl'] || default_endpoint['ssl'] %>,
+        "insecure": <%= endpoint['insecure'] || default_endpoint['insecure']%>,
+        "port": <%= endpoint['port'] || default_endpoint['port'] %>,
+        "user": "<%= endpoint['user'] || default_endpoint['user'] %>",
+        "pass": "<%= endpoint['pass'] || default_endpoint['pass'] %>",
+        "path": "<%= endpoint['path'] || default_endpoint['path'] %>",
+        "timeout": <%= endpoint['timeout'] || default_endpoint['timeout'] %>
+      }<%= ',' if j < (endpoint['host'].size - 1) -%>
     <%- end -%>
+<%= ',' if i < (@sensu_api_endpoints.size - 1) %>
+  <%- end -%>
   ],
   "uchiwa": {
     "host": "<%= @host %>",
     "port": <%= @port %>,
     "user": "<%= @user %>",
     "pass": "<%= @pass %>",
-    "refresh": <%= @refresh %><%= ',' if @users.size > 0 %>
+    "refresh": <%= @refresh %><%= ',' if @users.size > 0 or @auth.size == 2  or @ssl.size == 2 or @usersoptions.size > 0 %>
     <%- if @users.size > 0 -%>
     "users": [
     <%- @users.each_with_index do |user, i| -%>
@@ -32,7 +41,30 @@
         }
       }<%= ',' if i < (@users.size - 1) %>
     <%- end -%>
-    ]
+    ]<%= ',' if @auth.size == 2  or @ssl.size == 2 or @usersoptions.size > 0 %>
+  <%- end -%>
+  <%- if @auth.size == 2 -%>
+    "auth": {
+      "publickey": "<%= @auth['publickey']  %>",
+      "privatekey": "<%= @auth['privatekey']  %>"
+    }<%= ',' if @ssl.size == 2 || @usersoptions.size > 0 %>
+  <%- end -%>
+  <%- if @ssl.size == 2 -%>
+    "ssl": {
+      "certfile": "<%= @ssl['certfile']  %>",
+      "keyfile": "<%= @ssl['keyfile']  %>"
+    }<%= ',' if @usersoptions.size > 0 %>
+  <%- end -%>
+  <%- if @usersoptions.size > 0 -%>
+    "usersOptions": {
+    <%- @usersoptions.each_with_index do |(k,v), idx| -%>
+      <%- if [true, false].include? v -%>
+      "<%= k %>": <%= v %><%= ',' if idx != (@usersoptions.size - 1) %>
+      <%- else -%>
+      "<%= k %>": "<%= v %>"<%= ',' if idx != (@usersoptions.size - 1) %>
+      <%- end -%>
+    <%- end -%>
+   }
   <%- end -%>
   }
 }

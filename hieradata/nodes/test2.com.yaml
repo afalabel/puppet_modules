@@ -1,6 +1,6 @@
 ---
 classes:
-  - cnmon_sensu
-  - uchiwa
+  - mon_homelab
 
-cnmon_sensu::server: true
+sensu_server: true
+server_ip: '192.168.35.11'
