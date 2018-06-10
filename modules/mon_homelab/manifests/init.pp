@@ -11,14 +11,14 @@ class mon_homelab inherits mon_homelab::params{
     $rabbit_admin_username = 'admin'
     $rabbit_admin_password = 'password'
     $rabbitmq_port         = '5672'
-    $rabbitmq_host         = '127.0.0.1'
+    $rabbitmq_host         = lookup('rabbitmq_ip')
     $rabbitmq_user         = 'sensu'
     $rabbitmq_password     = 'sensu'
     $rabbitmq_vhost        = '/sensu'
-    $redis_host            = '127.0.0.1'
+    $redis_host            = lookup('server_ip')
     $redis_port            = '6379'
-    $api_bind              = '0.0.0.0'
-    $api_host              = 'localhost'
+    $api_bind              = lookup('server_ip')
+    $api_host              = lookup('server_ip')
     $api_port              = 4567
     $api_user              = 'sensu'
     $api_password          = 'sensu'
@@ -41,12 +41,15 @@ class mon_homelab inherits mon_homelab::params{
     $grafanapassword       = 'password'
     $grafanaversion        = '5.1.3'
 
-
-    class {'::mon_homelab::setup::rabbitmq': }
-    class {'::mon_homelab::setup::redis': }
-    class {'::mon_homelab::setup::sensu': }
-    class {'::mon_homelab::setup::uchiwa': }
-    class {'::mon_homelab::setup::influxdb': }
-    class {'::mon_homelab::setup::grafana': }
-
+    if ($sensu_server == true){
+      class {'::mon_homelab::setup::rabbitmq': }
+      class {'::mon_homelab::setup::redis': }
+      class {'::mon_homelab::setup::sensu': }
+      class {'::mon_homelab::setup::uchiwa': }
+      class {'::mon_homelab::setup::influxdb': }
+      class {'::mon_homelab::setup::grafana': }
+    }else{
+      class {'::mon_homelab::setup::sensu': }
+    }
+    class {'::mon_homelab::setup::cron': }
 }

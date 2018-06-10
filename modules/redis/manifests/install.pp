@@ -42,20 +42,6 @@ class redis::install (
           subscribe => Package['redis-server']
         }
       }
-      'Fedora', 'RedHat', 'CentOS', 'OEL', 'OracleLinux', 'Amazon', 'Scientific', 'SLES' : {
-        package { 'redis': ensure => $redis_version, }
-
-        # The SLES DatabaseServer repository installs a conflicting logrotation configuration
-        if $::operatingsystem == 'SLES' {
-          file { '/etc/logrotate.d/redis':
-            ensure    => 'absent',
-            subscribe => Package['redis'],
-          }
-        }
-      }
-      'Gentoo'           : {
-        package { 'dev-db/redis': ensure => $redis_version, }
-      }
       default            : {
         fail('The module does not support this OS.')
       }
@@ -66,14 +52,6 @@ class redis::install (
       'Debian', 'Ubuntu' : {
         ensure_packages('build-essential')
         Package['build-essential'] -> Anchor['redis::prepare_build']
-      }
-      'Fedora', 'RedHat', 'CentOS', 'OEL', 'OracleLinux', 'Amazon', 'Scientific', 'Sles' : {
-        ensure_packages('make')
-        Package['make'] -> Anchor['redis::prepare_build']
-        ensure_packages('gcc')
-        Package['gcc'] -> Anchor['redis::prepare_build']
-        ensure_packages('glibc-devel')
-        Package['glibc-devel'] -> Anchor['redis::prepare_build']
       }
       default            : {
         fail('The module does not support this OS.')

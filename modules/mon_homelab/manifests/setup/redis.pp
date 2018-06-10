@@ -7,7 +7,7 @@ class mon_homelab::setup::redis (
 ){
 
     class { '::redis::install':
-        redis_version => '3.0.5',
+        redis_version => 'stable',
     }
 
     $redis_run_dir = '/var/run/redis'

@@ -125,7 +125,7 @@ define redis::server (
   $redis_loglevel          = 'notice',
   $redis_appedfsync        = 'everysec',
   $running                 = true,
-  $enabled                 = true,
+  $enabled                 = false,
   $requirepass             = undef,
   $maxclients              = undef,
   $appendfsync_on_rewrite  = false,

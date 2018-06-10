@@ -11,13 +11,14 @@ class mon_homelab::setup::uchiwa (
     $uchiwa_user     = $::mon_homelab::uchiwa_user,
     $uchiwa_password = $::mon_homelab::uchiwa_password,
     $uchiwa_port     = $::mon_homelab::uchiwa_port,
+    $sensu_api       = $::mon_homelab::api_host,
 ){
 
     $repo_source_uchiwa = "http://repositories.sensuapp.org/yum/${::operatingsystemmajrelease}/\$basearch/"
 
     $uchiwa_api_config = [{
                             name      => 'sensu',
-                            host      => '127.0.0.1',
+                            host      => $sensu_api,
                             ssl       => false,
                             insecure  => true,
                             port      => $api_port,

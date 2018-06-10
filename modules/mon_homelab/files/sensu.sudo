@@ -1,0 +1,16 @@
+User_Alias SENSU_USER = sensu
+
+Defaults:SENSU_USER    !requiretty
+
+SENSU_USER ALL=(ALL) NOPASSWD: /etc/sensu/plugins/storage/check_double_puppet_cron
+SENSU_USER ALL=(ALL) NOPASSWD: /opt/sensu/embedded/bin/check-puppet-last-run.rb
+SENSU_USER ALL=(ALL) NOPASSWD: /opt/sensu/embedded/bin/check-fs-writable.rb
+SENSU_USER ALL=(ALL) NOPASSWD: /opt/sensu/embedded/bin/metrics-puppet-run.rb
+SENSU_USER ALL=(ALL) NOPASSWD: /opt/sensu/embedded/bin/check-tail.rb
+SENSU_USER ALL=(ALL) NOPASSWD: /opt/sensu/embedded/bin/check-disk-usage.rb
+SENSU_USER ALL=(ALL) NOPASSWD: /opt/sensu/embedded/bin/metrics-disk-capacity.rb
+SENSU_USER ALL=(ALL) NOPASSWD: /opt/sensu/embedded/bin/metrics-disk-usage.rb
+SENSU_USER ALL=(ALL) NOPASSWD: /sbin/service
+SENSU_USER ALL=(ALL) NOPASSWD: /usr/bin/md5sum
+SENSU_USER ALL=(ALL) NOPASSWD: /bin/cat
+SENSU_USER ALL=(ALL) NOPASSWD: /usr/bin/which

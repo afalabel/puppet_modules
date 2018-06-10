@@ -27,7 +27,6 @@ class mon_homelab::setup::sensu (
 ){
 
     $influxdb_tags = []
-    #$influxdb_tags = ['tag1','gruppo1','tag2','gruppo2','tag3','gruppo3']
 
     if empty($influxdb_tags) {
         $influxdb_tags_real = {}
@@ -45,240 +44,264 @@ class mon_homelab::setup::sensu (
     #show tag values with key = tag1    #lista tutti i valori di un tag
     #select * from "curl_timings.time_total" where tag1='value1'
 
-    class { '::sensu':
-        server               => $sensu_server,
-        api                  => true,
-        purge                => true,
-        rabbitmq_port        => $rabbitmq_port,
-        rabbitmq_host        => $rabbitmq_host,
-        rabbitmq_user        => $rabbitmq_user,
-        rabbitmq_password    => $rabbitmq_password,
-        rabbitmq_vhost       => $rabbitmq_vhost,
-        redis_host           => $redis_host,
-        redis_port           => $redis_port,
-        api_bind             => $api_bind,
-        api_host             => $api_host,
-        api_port             => $api_port,
-        api_user             => $api_user,
-        api_password         => $api_password,
-        subscriptions        => $def_subs,
-        use_embedded_ruby    => false,
-        gem_path             => undef,
-        sensu_plugin_version => present,
-        version              => $sensu_version,
-        client_custom        => $client_custom,
+    file { '/etc/sudoers.d/sensu':
+        ensure => file,
+        group  => 'root',
+        owner  => 'root',
+        mode   => '0440',
+        source => 'puppet:///modules/mon_homelab/sensu.sudo',
     }
 
     package {['ruby-dev','g++','gcc','sysstat']:
       ensure => 'present',
     }
-
-    $plugin_gem = ['rest-client', 'erubis', 'em-http-request',
-                    'eventmachine', 'json', 'sensu-plugins-process-checks',
-                    'sensu-plugins-sensu', 'sensu-plugins-ntp',
-                    'sensu-plugins-cpu-checks', 'multi_json',
-                    'sensu-plugins-network-checks', 'sensu-plugins-http',
-                    'sensu-plugins-filesystem-checks', 'sensu-plugins-io-checks',
-                    'sensu-plugins-memory-checks', 'sensu-plugins-load-checks',
-                    'sensu-plugins-disk-checks']
-
-    package { $plugin_gem:
-      ensure   => 'present',
-      provider => 'sensu_gem',
-      require  => [ Package['gcc'], Package['g++'] ],
+    ->package { ['mail', 'rest-client', 'erubis',
+    'em-http-request', 'eventmachine', 'json', 'sensu-plugins-sensu',
+    'sensu-plugins-process-checks','sensu-plugins-ntp',
+    'sensu-plugins-cpu-checks',
+    'sensu-plugins-network-checks', 'sensu-plugins-http',
+    'sensu-plugins-filesystem-checks', 'sensu-plugins-io-checks',
+    'sensu-plugins-memory-checks', 'sensu-plugins-load-checks',
+    'sensu-plugins-disk-checks',
+    'multi_json']:
+        ensure   => 'present',
+        provider => 'sensu_gem',
     }
 
-    file { '/etc/sensu/plugins/custom':
-        recurse => true,
-        purge   => true,
+    if ($sensu_server == true){
+      class { '::sensu':
+          server               => $sensu_server,
+          api                  => true,
+          purge                => true,
+          rabbitmq_port        => $rabbitmq_port,
+          rabbitmq_host        => $rabbitmq_host,
+          rabbitmq_user        => $rabbitmq_user,
+          rabbitmq_password    => $rabbitmq_password,
+          rabbitmq_vhost       => $rabbitmq_vhost,
+          redis_host           => $redis_host,
+          redis_port           => $redis_port,
+          api_bind             => $api_bind,
+          api_host             => $api_host,
+          api_port             => $api_port,
+          api_user             => $api_user,
+          api_password         => $api_password,
+          subscriptions        => $def_subs,
+          use_embedded_ruby    => true,
+          gem_path             => '/opt/sensu/embedded/bin/gem',
+          sensu_plugin_version => present,
+          version              => $sensu_version,
+          client_custom        => $client_custom,
+      }
+
+      file { '/etc/sensu/plugins/custom':
+          recurse => true,
+          purge   => true,
+          owner   => 'sensu',
+          group   => 'sensu',
+          mode    => '0755',
+          source  => 'puppet:///modules/mon_homelab/custom',
+          notify  => Service['sensu-client'],
+      }
+
+      file { '/etc/sensu/conf.d/influxdb.json':
+        ensure  => file,
         owner   => 'sensu',
         group   => 'sensu',
         mode    => '0755',
-        source  => 'puppet:///modules/mon_homelab/custom',
-        notify  => Service['sensu-client'],
+        content => template('mon_homelab/influxdb.json.erb'),
+        notify  => [ Service['sensu-server'], Service['sensu-api'],
+              Service['sensu-client'] ],
+      }
+      file { '/etc/sensu/conf.d/mailer.json':
+        ensure  => file,
+        owner   => 'sensu',
+        group   => 'sensu',
+        mode    => '0755',
+        content => template('mon_homelab/mailer.json.erb'),
+        notify  => [ Service['sensu-server'], Service['sensu-api'],
+                    Service['sensu-client'] ],
+              }
+
+
+      sensu::extension { 'influxdb.rb':
+        ensure => present,
+        source => 'puppet:///modules/mon_homelab/influxdb.rb',
+      }
+
+
+      ########## FILTERS ##########
+      $attr_recurrences_myalertlog = {
+          'occurrences' => 'eval: value == 3  || value % 60 == 0',
+      }
+
+      sensu::filter { 'recurrences_myalertlog':
+          attributes => $attr_recurrences_myalertlog,
+      }
+
+      $attr_recurrences_myalertlog_resolve = {
+          'occurrences' => 'eval: value >= 3',
+      }
+
+      sensu::filter { 'recurrences_myalertlog_resolve':
+          attributes => $attr_recurrences_myalertlog_resolve,
+      }
+
+      #######################################
+      ## FILTRI PER ENV E ATTRIBUTI CUSTOM ##
+      #######################################
+      $attr_production = { 'client' => { 'environment' => 'prod' }, }
+
+      sensu::filter { 'production':
+          attributes => $attr_production,
+      }
+
+      sensu::filter { 'not_production':
+          attributes => $attr_production,
+          negate     => true,
+      }
+
+
+      ######################################################################
+      ## IDENTIFICAZIONE ACTION RESOLVE/CREATE PER I NOTIFICATION HANDLER ##
+      ######################################################################
+
+      $attr_myalertlog_create = {
+          'action' => 'create',
+      }
+
+      sensu::filter { 'myalertlog_create':
+          attributes => $attr_myalertlog_create,
+      }
+      ############
+
+      $attr_myalertlog_resolve = {
+          'action' => 'resolve',
+      }
+
+      sensu::filter { 'myalertlog_resolve':
+          attributes => $attr_myalertlog_resolve,
+      }
+
+      ########## HANDLER ##########
+      $night_interval = {
+          'begin' => '11PM CEST',
+          'end'   => '06AM CEST',
+      }
+
+      sensu::handler { 'metrics':
+          type     => 'set',
+          handlers => ['influxdb'],
+      }
+
+      sensu::handler { 'mylog':
+          type     => 'set',
+          handlers => ['myalertlog_create', 'myalertlog_resolve', 'myalertlog_create_prod', 'myalertlog_resolve_prod'],
+      }
+
+      sensu::handler { 'myalertlog_create':
+          command => 'tee -a /var/log/sensu/myalertlog_create.log',
+          type    => 'pipe',
+          filters => ['recurrences_myalertlog', 'myalertlog_create', 'not_production'],
+      }
+
+      sensu::handler { 'myalertlog_resolve':
+          command => 'tee -a /var/log/sensu/myalertlog_resolve.log',
+          type    => 'pipe',
+          filters => ['recurrences_myalertlog_resolve', 'myalertlog_resolve', 'not_production'],
+      }
+
+      sensu::handler { 'myalertlog_create_prod':
+          command => 'tee -a /var/log/sensu/myalertlog_create_prod.log',
+          type    => 'pipe',
+          filters => ['recurrences_myalertlog', 'myalertlog_create', 'production'],
+      }
+
+      sensu::handler { 'myalertlog_resolve_prod':
+          command => 'tee -a /var/log/sensu/myalertlog_resolve_prod.log',
+          type    => 'pipe',
+          filters => ['recurrences_myalertlog_resolve', 'myalertlog_resolve', 'production'],
+      }
+
+
+      ########## CHECK ##########
+      mon_homelab::setup::check { 'check_crond':
+          command     => 'check-process.rb -p cron -C 1',
+          subscribers => 'linux',
+      }
+
+      mon_homelab::setup::check { 'check_ntpd':
+          command     => 'check-process.rb -p ntpd -C 1',
+          subscribers => 'linux',
+          handle      => false,
+      }
+
+      mon_homelab::setup::check { 'check-ntp':
+          command      => 'check-ntp.rb',
+          subscribers  => 'linux',
+          aggregate    => undef,
+          handle       => false,
+          dependencies => ['check_ntpd'],
+      }
+
+      ########## METRICHE ##########
+      mon_homelab::setup::metric { 'metrics-cpu':
+          command     => 'metrics-cpu.rb',
+          subscribers => 'linux',
+      }
+
+      mon_homelab::setup::metric { 'metrics-disk':
+          command     => 'metrics-disk.rb',
+          subscribers => 'linux',
+      }
+
+      mon_homelab::setup::metric { 'metrics-load':
+          command     => 'metrics-load.rb',
+          subscribers => 'linux',
+      }
+
+      mon_homelab::setup::metric { 'metrics-user-pct-usage':
+          command     => 'metrics-user-pct-usage.rb',
+          subscribers => 'linux',
+      }
+
+      mon_homelab::setup::metric { 'metrics-memory-percent':
+          command     => 'metrics-memory-percent.rb',
+          subscribers => 'linux',
+      }
+
+      mon_homelab::setup::metric { 'metrics-memory':
+          command     => 'metrics-memory.rb',
+          subscribers => 'linux',
+      }
+
+      mon_homelab::setup::metric { 'metrics-iostat-extended':
+          command     => 'metrics-iostat-extended.rb',
+          subscribers => 'linux',
+      }
+
+      mon_homelab::setup::metric { 'metrics-netif':
+          command     => 'metrics-netif.rb --scheme `hostname -f`.netif',
+          subscribers => 'linux',
+      }
+
+      mon_homelab::setup::metric { 'metrics-interface':
+          command     => 'metrics-interface.rb',
+          subscribers => 'linux',
+      }
+  }
+  else{
+    class { '::sensu':
+      purge                => true,
+      rabbitmq_port        => $rabbitmq_port,
+      rabbitmq_host        => $rabbitmq_host,
+      rabbitmq_user        => $rabbitmq_user,
+      rabbitmq_password    => $rabbitmq_password,
+      rabbitmq_vhost       => $rabbitmq_vhost,
+      subscriptions        => $def_subs,
+      use_embedded_ruby    => true,
+      gem_path             => '/opt/sensu/embedded/bin/gem',
+      sensu_plugin_version => present,
+      client_custom        => $client_custom
     }
-
-    file { '/etc/sensu/conf.d/influxdb.json':
-      ensure  => file,
-      owner   => 'sensu',
-      group   => 'sensu',
-      mode    => '0755',
-      content => template('mon_homelab/influxdb.json.erb'),
-      notify  => [ Service['sensu-server'], Service['sensu-api'],
-            Service['sensu-client'] ],
-    }
-
-    sensu::extension { 'influxdb.rb':
-      ensure => present,
-      source => 'puppet:///modules/mon_homelab/influxdb.rb',
-    }
-
-
-    ########## FILTERS ##########
-    $attr_recurrences_myalertlog = {
-        'occurrences' => 'eval: value == 3  || value % 60 == 0',
-    }
-
-    sensu::filter { 'recurrences_myalertlog':
-        attributes => $attr_recurrences_myalertlog,
-    }
-
-    $attr_recurrences_myalertlog_resolve = {
-        'occurrences' => 'eval: value >= 3',
-    }
-
-    sensu::filter { 'recurrences_myalertlog_resolve':
-        attributes => $attr_recurrences_myalertlog_resolve,
-    }
-
-    #######################################
-    ## FILTRI PER ENV E ATTRIBUTI CUSTOM ##
-    #######################################
-    $attr_production = { 'client' => { 'environment' => 'prod' }, }
-
-    sensu::filter { 'production':
-        attributes => $attr_production,
-    }
-
-    sensu::filter { 'not_production':
-        attributes => $attr_production,
-        negate     => true,
-    }
-
-
-    ######################################################################
-    ## IDENTIFICAZIONE ACTION RESOLVE/CREATE PER I NOTIFICATION HANDLER ##
-    ######################################################################
-
-    $attr_myalertlog_create = {
-        'action' => 'create',
-    }
-
-    sensu::filter { 'myalertlog_create':
-        attributes => $attr_myalertlog_create,
-    }
-    ############
-
-    $attr_myalertlog_resolve = {
-        'action' => 'resolve',
-    }
-
-    sensu::filter { 'myalertlog_resolve':
-        attributes => $attr_myalertlog_resolve,
-    }
-
-    ########## HANDLER ##########
-    $night_interval = {
-        'begin' => '11PM CEST',
-        'end'   => '06AM CEST',
-    }
-
-    sensu::handler { 'metrics':
-        type     => 'set',
-        handlers => ['influxdb'],
-    }
-
-    sensu::handler { 'mylog':
-        type     => 'set',
-        handlers => ['myalertlog_create', 'myalertlog_resolve', 'myalertlog_create_prod', 'myalertlog_resolve_prod'],
-    }
-
-    sensu::handler { 'myalertlog_create':
-        command => 'tee -a /var/log/sensu/myalertlog_create.log',
-        type    => 'pipe',
-        filters => ['recurrences_myalertlog', 'myalertlog_create', 'not_production'],
-    }
-
-    sensu::handler { 'myalertlog_resolve':
-        command => 'tee -a /var/log/sensu/myalertlog_resolve.log',
-        type    => 'pipe',
-        filters => ['recurrences_myalertlog_resolve', 'myalertlog_resolve', 'not_production'],
-    }
-
-    sensu::handler { 'myalertlog_create_prod':
-        command => 'tee -a /var/log/sensu/myalertlog_create_prod.log',
-        type    => 'pipe',
-        filters => ['recurrences_myalertlog', 'myalertlog_create', 'production'],
-    }
-
-    sensu::handler { 'myalertlog_resolve_prod':
-        command => 'tee -a /var/log/sensu/myalertlog_resolve_prod.log',
-        type    => 'pipe',
-        filters => ['recurrences_myalertlog_resolve', 'myalertlog_resolve', 'production'],
-    }
-
-
-    ########## CHECK ##########
-    mon_homelab::setup::check { 'check_crond':
-        command     => 'check-process.rb -p crond -C 1',
-        subscribers => 'linux',
-    }
-
-    mon_homelab::setup::check { 'check_ntpd':
-        command     => 'check-process.rb -p ntpd -C 1',
-        subscribers => 'linux',
-        handle      => false,
-    }
-
-    mon_homelab::setup::check { 'check-ntp':
-        command      => 'check-ntp.rb',
-        subscribers  => 'linux',
-        aggregate    => undef,
-        handle       => false,
-        dependencies => ['check_ntpd'],
-    }
-
-
-    mon_homelab::setup::check { 'check-aggregate_ntp':
-        command    => "check-aggregate.rb -u ${::mon_homelab::api_user} -p ${::mon_homelab::api_password} -c check-ntp -l 1 -W 50 -C 80",
-        standalone => true,
-    }
-
-    ########## METRICHE ##########
-    mon_homelab::setup::metric { 'metrics-cpu':
-        command     => 'metrics-cpu.rb',
-        subscribers => 'linux',
-    }
-
-    mon_homelab::setup::metric { 'metrics-disk':
-        command     => 'metrics-disk.rb',
-        subscribers => 'linux',
-    }
-
-    mon_homelab::setup::metric { 'metrics-load':
-        command     => 'metrics-load.rb',
-        subscribers => 'linux',
-    }
-
-    mon_homelab::setup::metric { 'metrics-user-pct-usage':
-        command     => 'metrics-user-pct-usage.rb',
-        subscribers => 'linux',
-    }
-
-    mon_homelab::setup::metric { 'metrics-memory-percent':
-        command     => 'metrics-memory-percent.rb',
-        subscribers => 'linux',
-    }
-
-    mon_homelab::setup::metric { 'metrics-memory':
-        command     => 'metrics-memory.rb',
-        subscribers => 'linux',
-    }
-
-    mon_homelab::setup::metric { 'metrics-iostat-extended':
-        command     => 'metrics-iostat-extended.rb',
-        subscribers => 'linux',
-    }
-
-    mon_homelab::setup::metric { 'metrics-netif':
-        command     => 'metrics-netif.rb --scheme `hostname -f`.netif',
-        subscribers => 'linux',
-    }
-
-    mon_homelab::setup::metric { 'metrics-interface':
-        command     => 'metrics-interface.rb',
-        subscribers => 'linux',
-    }
-
-
+  }
 }
