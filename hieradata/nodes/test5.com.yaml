@@ -5,3 +5,4 @@ classes:
 sensu_server: true
 server_ip: '192.168.35.14'
 rabbitmq_ip: '192.168.35.14'
+influx_datadir: '/var/lib/influxdb/data/TEST'

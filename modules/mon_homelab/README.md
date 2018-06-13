@@ -1,18 +1,10 @@
-# cnbebop_sensu_testbed
+# mon_homelab
 
 ## Module Description
    Configura un testbed completo per cnmon
 
 
 ## Usage
-
-```bash
-puppet module install cnaf-cnbebop_sensu_testbed-0.1.0.tar.gz
-```
-
-```puppet
-puppet apply -e "include cnbebop_sensu_testbed"
-```
 
 
 ## SETUP INFLUX
@@ -41,7 +33,6 @@ service influxdb restart
 
 ## ENDPOINTS
 
-- RabbitMQ Management: http://test-sysinfo01.example.com:15672/
-- Dashboard Uchiwa:    http://test-sysinfo01.example.com:3000/
-- Dashboard Grafana:   http://test-sysinfo01.example.com:8080/
-
+- RabbitMQ Management: http://<host>:15672/
+- Dashboard Uchiwa:    http://<host>:3000/
+- Dashboard Grafana:   http://<host>:8080/

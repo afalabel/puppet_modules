@@ -37,6 +37,7 @@ class mon_homelab inherits mon_homelab::params{
     $influx_sensu_pwd      = 'sensupasswordinflux'
     $influx_sensu_db       = 'sensu_db'
     $influx_version        = '1.5.2-1'
+    $influx_datadir        = lookup('influx_datadir')
     $grafanauser           = 'admin'
     $grafanapassword       = 'password'
     $grafanaversion        = '5.1.3'
